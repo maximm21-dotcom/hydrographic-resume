@@ -392,25 +392,26 @@
   <section id="calendar" class="section">
     <div class="container">
       <h2 class="h1">Calendar</h2>
-      <p class="muted">This calendar shows my current availability and assignments. All times are in Puerto Rico timezone (America/Puerto_Rico).</p>
+      <p class="muted">This calendar shows my current availability and assignments. All times are in CET timezone (Europe/Paris).</p>
       <div id="calendar-app" class="card p-3"></div>
     </div>
   </section>
 
- <section id="contact" class="section bg-body-tertiary">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 text-center">
-        <h2 class="h1">Contact</h2>
-        <p class="muted">For project inquiries and availability, reach out directly.</p>
-        <ul class="list-unstyled d-flex justify-content-center gap-4 flex-wrap">
-          <li><i class="bi bi-envelope me-2"></i><a class="link-quiet" href="mailto:maxim.surveyor@email.com">maxim.surveyor@email.com</a></li>
-          <li><i class="bi bi-linkedin me-2"></i><a class="link-quiet" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/maximtararushkin">linkedin.com/in/maximtararushkin</a></li>
-        </ul>
+  <!-- Contact -->
+  <section id="contact" class="section bg-body-tertiary">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="h1">Contact</h2>
+          <p class="muted">For project inquiries and availability, reach out directly.</p>
+          <ul class="list-unstyled d-flex justify-content-center gap-4 flex-wrap">
+            <li><i class="bi bi-envelope me-2"></i><a class="link-quiet" href="mailto:maxiximm21@gmail.com">maximm21@gmail.com</a></li>
+            <li><i class="bi bi-linkedin me-2"></i><a class="link-quiet" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/maximtararushkin">linkedin.com/in/maximtararushkin</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Footer -->
   <footer class="footer py-4">
@@ -426,11 +427,6 @@
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      alert('Form submission demo - in production this would send via Formspree');
-    }
 
     document.addEventListener('DOMContentLoaded', function () {
       const el = document.getElementById('calendar-app');
@@ -448,21 +444,30 @@
         const calendar = new FullCalendar.Calendar(el, {
           initialView: isMobile ? 'listMonth' : 'dayGridMonth',
           height: 'auto',
-          timeZone: 'America/Puerto_Rico',
+          timeZone: 'Europe',
           headerToolbar: {
             left: 'prev,next today',
             center: 'title',
             right: isMobile ? 'listMonth' : 'dayGridMonth,listMonth'
           },
           events: [
+            // GREEN = AVAILABLE FOR PROJECTS
             { 
               title: 'Available for Projects', 
-              start: '2025-08-01', 
-              end: '2025-08-15', 
+              start: '2025-09-01', 
+              end: '2025-09-24', 
               color: '#198754',
               display: 'background'
             },
-           
+            
+            // RED = NOT AVAILABLE (BUSY)
+            { 
+              title: 'Project Assignment', 
+              start: '2025-09-25', 
+              end: '2025-11-01', 
+              color: '#dc3545',
+              display: 'background'
+            }
           ],
           eventClick: function(info) {
             info.jsEvent.preventDefault();
