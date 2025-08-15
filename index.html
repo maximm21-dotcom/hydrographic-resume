@@ -171,15 +171,22 @@
     }
 
     .timeline-container::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: rgba(255,255,255,.15);
-      transform: translateX(-50%);
-      z-index: 1;
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(13, 110, 253, 0.3) 10%, 
+    rgba(13, 110, 253, 0.6) 50%, 
+    rgba(13, 110, 253, 0.3) 90%, 
+    transparent 100%
+  );
+  transform: translateX(-50%);
+  z-index: 1;
+  border-radius: 2px;
     }
 
     .timeline-item {
