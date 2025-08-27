@@ -1,1 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Maxim Tararushkin · Freelance Hydrographic Surveyor</title>
+  <meta name="description" content="15+ years in offshore renewables: cable lay, trenching, rock installation, and online survey support for wind farms and subsea infrastructure." />
+
+  <!-- Canonical & Icons -->
+  <link rel="canonical" href="https://<your-domain-or-gh-pages-subpath>" />
+  <link rel="icon" href="/assets/favicon.ico" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Maxim Tararushkin · Freelance Hydrographic Surveyor" />
+  <meta property="og:description" content="Selected offshore projects in cable lay, trenching and rock installation. CV, availability, and contacts." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://<your-domain-or-gh-pages-subpath>" />
+  <meta property="og:image" content="https://<your-domain-or-gh-pages-subpath>/assets/cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Maxim Tararushkin",
+    "jobTitle":"Hydrographic Surveyor",
+    "url":"https://<your-domain-or-gh-pages-subpath>",
+    "sameAs":[
+      "https://www.linkedin.com/in/maximtararushkin",
+      "https://wa.me/44753712736",
+      "mailto:maximm21@gmail.com"
+    ],
+    "worksFor":{"@type":"Organization","name":"Freelance"},
+    "knowsLanguage":["English","Russian"]
+  }
+  </script>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Trimmed weights to those actually used -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Base styles -->
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --card:#121318;
+      --text:#f5f6f7;
+      --muted:#b8bfc6;
+      --line:#22242c;
+      --brand:#54e1b7;
+    }
+    /* Layout */
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+      background:radial-gradient(90% 60% at 80% 10%, rgba(84,225,183,0.08), transparent 60%) , var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    .container{max-width:1080px;margin:0 auto;padding:0 20px}
+    header.top{
+      position:sticky;top:0;z-index:1000;
+      backdrop-filter: blur(10px);
+      background:linear-gradient(180deg, rgba(11,12,16,.75), rgba(11,12,16,.35) 70%, rgba(11,12,16,0));
+      border-bottom:1px solid var(--line);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600}
+    .nav a:hover{color:var(--text)}
+    .nav a.active{color:var(--text);border-bottom:2px solid var(--brand)}
+    /* Accessibility */
+    .visually-hidden-focusable{position:absolute;left:-9999px}
+    .visually-hidden-focusable:focus{left:16px;top:16px;background:#fff;color:#000;padding:8px 12px;border:1px solid var(--line);border-radius:8px}
+    a:focus-visible,.cta:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+
+    /* Hero */
+    .hero{padding:72px 0 36px}
+    .wordmark{font-weight:900;letter-spacing:-0.02em;line-height:.95;margin:8px 0 12px;font-size:clamp(36px,12vw,108px)}
+    .subtitle{color:var(--muted);font-size:clamp(16px,2.2vw,22px);max-width:820px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+    .cta{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--brand);color:#0b0c10;text-decoration:none;
+      padding:10px 16px;border-radius:999px;font-weight:700;border:1px solid transparent;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .cta.ghost{background:transparent;color:var(--text);border-color:var(--line)}
+    .cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(84,225,183,.25)}
+    .meta{color:var(--muted);font-size:14px}
+
+    /* Sections */
+    main section{padding:44px 0 28px;border-top:1px solid var(--line);scroll-margin-top:80px}
+    h2{font-size:clamp(24px,4vw,44px);margin:0 0 6px}
+    p{line-height:1.6}
+    .grid{display:grid;gap:14px}
+    @media (min-width: 840px){ .grid.two{grid-template-columns:1.4fr .9fr} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+      border:1px solid var(--line);border-radius:16px;padding:16px
+    }
+    .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12);transition:transform .15s ease, box-shadow .15s ease}
+    .chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;margin:4px 6px 0 0;color:var(--muted)}
+    .list{display:grid;gap:10px}
+    .item{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+    .item .title{font-weight:700}
+    .item .sub{color:var(--muted);font-size:13px;margin-top:2px}
+
+    footer{padding:36px 0 72px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+    .links a{color:var(--text);text-decoration:none;margin-right:14px}
+    .links a:hover{text-decoration:underline}
+
+    /* Mobile tweaks */
+    @media (max-width: 480px){
+      .hero{padding:56px 0 28px}
+      .actions{gap:10px}
+      .cta{padding:9px 14px}
+    }
+  </style>
+</head>
+<body>
+  <a href="#home" class="visually-hidden-focusable">Skip to content</a>
+
+  <header class="top" role="banner">
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <div class="logo" aria-label="Home">
+        <a href="#home" class="meta" style="margin-left:0"><strong>MT</strong> · Hydrographic Surveyor</a>
+      </div>
+      <nav>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="container" role="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="wordmark">Maxim Tararushkin</h1>
+      <p class="subtitle">Experienced hydrographic surveyor specialized in offshore renewables and subsea construction: cable lay, trenching, rock installation, and online survey on high-spec vessels. Available for short and long rotations worldwide.</p>
+      <div class="actions">
+        <!-- Open CV in a new tab (works on GitHub Pages if path is correct) -->
+        <a class="cta" href="/assets/CV_MaximTararushkin_30.06.2025.pdf" target="_blank" rel="noopener">
+          <i class="bi bi-file-earmark-text"></i> Open CV (PDF)
+        </a>
+        <!-- Correct anchor to #projects -->
+        <a class="cta ghost" href="#projects"><i class="bi bi-collection"></i> Selected Projects</a>
+        <a class="cta ghost" href="https://www.linkedin.com/in/maximtararushkin" target="_blank" rel="noopener">
+          <i class="bi bi-linkedin"></i> LinkedIn
+        </a>
+        <!-- WhatsApp: no plus sign in wa.me -->
+        <a class="cta ghost" href="https://wa.me/44753712736" target="_blank" rel="noopener">
+          <i class="bi bi-whatsapp"></i> WhatsApp
+        </a>
+      </div>
+      <p class="meta" style="margin-top:10px">Base: flexible · Passports/visas on request · Certificates: BOSIET/FOET, GWO, STCW, NEBOSH (details in CV)</p>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" aria-labelledby="exp-title">
+      <h2 id="exp-title">Experience</h2>
+      <p class="meta">Use one clean date style everywhere: <em>Jun 2025–Present</em> (en dash, no dots).</p>
+
+      <div class="grid two" style="margin-top:12px">
+        <div class="card">
+          <div class="list">
+            <div class="item">
+              <div class="title">Online Surveyor · Prysmian Powerlink — <span class="meta">May 2025–Present</span></div>
+              <div class="sub">Vessel: <strong>CLV Leonardo da Vinci</strong> · Scope: Export/array cable lay support; plough ops (HD3)</div>
+              <div class="chips">
+                <span class="chip">Cable lay</span><span class="chip">Plough</span><span class="chip">Online survey</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="title">Senior Surveyor · Jan De Nul — <span class="meta">2021–2024</span></div>
+              <div class="sub">Vessels: <strong>MPV Daniel Bernoulli</strong>, <strong>Simon Stevin</strong> · Scope: Rock installation & trenching, OWF scopes (e.g., Fécamp, Changhua)</div>
+              <div class="chips">
+                <span class="chip">Rock installation</span><span class="chip">Trenching</span><span class="chip">OWF</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="title">Hydrographic Surveyor · Various — <span class="meta">2012–2020</span></div>
+              <div class="sub">Projects: NASR Field (UAE), Sabetta Seaport, Abu Qir Port, Ayatsil Power Cable, Java–Bali Submarine Cables, Coastal Virginia OWF</div>
+              <div class="chips">
+                <span class="chip">Dredging</span><span class="chip">Cable lay</span><span class="chip">Construction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card" aria-label="Highlights">
+          <strong>Highlights</strong>
+          <ul>
+            <li>15+ years offshore; full project lifecycle from pre-lay to as-built.</li>
+            <li>Online/Offline survey, navigation suites, QC, reporting.</li>
+            <li>Multi-vessel workflows, client coordination, HSE leadership.</li>
+          </ul>
+          <div style="margin-top:8px">
+            <span class="chip">EIVA NaviSuite</span>
+            <span class="chip">Qinsy</span>
+            <span class="chip">GIS</span>
+            <span class="chip">MBES/SSS</span>
+            <span class="chip">C-Nav/Applanix</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" aria-labelledby="proj-title">
+      <h2 id="proj-title">Selected Projects</h2>
+      <p class="meta">Concise cards for quick scanning. Add a “Full Project History” page if needed.</p>
+
+      <div class="grid" style="margin-top:12px">
+        <article class="card" aria-labelledby="p1">
+          <div class="title" id="p1">Fécamp OWF (France) — Rock Installation & Survey</div>
+          <div class="sub">Company: Jan De Nul · Vessel: <strong>Simon Stevin</strong> · Role: Senior Surveyor</div>
+          <p>Supervised online survey and QC for subsea rock installation supporting foundations and cable protection.</p>
+          <div class="chips"><span class="chip">OWF</span><span class="chip">Rock installation</span><span class="chip">QC</span></div>
+        </article>
+
+        <article class="card" aria-labelledby="p2">
+          <div class="title" id="p2">Changhua OWF (Taiwan) — Trenching & As-built</div>
+          <div class="sub">Company: Jan De Nul · Vessel: <strong>MPV Daniel Bernoulli</strong> · Role: Senior Surveyor</div>
+          <p>Trenching operations and as-built verification; ensured positional accuracy and documentation for client acceptance.</p>
+          <div class="chips"><span class="chip">Trenching</span><span class="chip">As-built</span><span class="chip">Reporting</span></div>
+        </article>
+
+        <article class="card" aria-labelledby="p3">
+          <div class="title" id="p3">Coastal Virginia OWF (USA) — Cable Lay Support</div>
+          <div class="sub">Client: Prysmian · Vessel: <strong>CLV Leonardo da Vinci</strong> · Role: Online Surveyor</div>
+          <p>Real-time navigation and layback monitoring during export/array cable installation; coordinated with plough team (HD3).</p>
+          <div class="chips"><span class="chip">Cable lay</span><span class="chip">Online survey</span><span class="chip">Plough</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" aria-labelledby="skills-title">
+      <h2 id="skills-title">Skills</h2>
+      <div class="grid" style="margin-top:12px">
+        <div class="card">
+          <strong>Technical</strong>
+          <p class="meta">Navigation & positioning, MBES/SSS, USBL/LBL, geodesy & datums, GIS, online/offline survey.</p>
+          <div class="chips">
+            <span class="chip">EIVA</span><span class="chip">Qinsy</span><span class="chip">Hypack</span>
+            <span class="chip">C-Nav</span><span class="chip">Applanix</span><span class="chip">GIS</span>
+          </div>
+        </div>
+        <div class="card">
+          <strong>Soft</strong>
+          <p class="meta">Client communication, shift leadership, multi-discipline coordination, documentation & QA/QC, safety culture.</p>
+          <div class="chips">
+            <span class="chip">Leadership</span><span class="chip">Reporting</span><span class="chip">HSE</span>
+            <span class="chip">Stakeholder mgmt</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+      <div class="card">
+        <p>For roles, rotations, or references, reach out directly:</p>
+        <div class="actions" style="margin-top:8px">
+          <a class="cta" href="mailto:maximm21@gmail.com"><i class="bi bi-envelope"></i> Email me</a>
+          <a class="cta ghost" href="https://wa.me/44753712736" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+          <a class="cta ghost" href="https://www.linkedin.com/in/maximtararushkin" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i> LinkedIn</a>
+        </div>
+        <p class="meta" style="margin-top:10px">Prefer a PDF? Open my CV from the hero section above.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div style="margin-top:10px">© <span id="y"></span> Maxim Tararushkin. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Small helpers -->
+  <script>
+    // Active link highlighting while scrolling
+    const sections=[...document.querySelectorAll('main section[id]')];
+    const navLinks=[...document.querySelectorAll('header nav a[href^="#"]')];
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id));
+        }
+      });
+    },{rootMargin:'-40% 0px -55% 0px',threshold:0});
+    sections.forEach(s=>io.observe(s));
+
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
 
