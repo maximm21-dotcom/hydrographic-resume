@@ -62,7 +62,7 @@
       background:#000;
     }
     
-    /* Video background with Maritime Robotics treatment */
+    /* Video background with better visibility */
     .hero-video{
       position:absolute;
       top:50%;
@@ -73,10 +73,10 @@
       height:auto;
       z-index:1;
       transform:translateX(-50%) translateY(-50%);
-      filter:brightness(0.35) contrast(1.2) saturate(1.1);
+      filter:brightness(0.6) contrast(1.1) saturate(1.2);
     }
     
-    /* Multi-layered overlay system like Maritime Robotics */
+    /* Lighter overlay to show more video */
     .hero::before{
       content:'';
       position:absolute;
@@ -86,14 +86,14 @@
       bottom:0;
       background:linear-gradient(
         135deg, 
-        rgba(14, 103, 255, 0.7) 0%, 
-        rgba(11, 18, 32, 0.8) 40%,
-        rgba(0, 0, 0, 0.9) 100%
+        rgba(14, 103, 255, 0.4) 0%, 
+        rgba(11, 18, 32, 0.5) 40%,
+        rgba(0, 0, 0, 0.6) 100%
       );
       z-index:2;
     }
     
-    /* Subtle tech pattern overlay */
+    /* Subtle tech pattern overlay with reduced opacity */
     .hero::after{
       content:'';
       position:absolute;
@@ -102,8 +102,8 @@
       right:0;
       bottom:0;
       background:
-        radial-gradient(circle at 20% 80%, rgba(14, 103, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(14, 103, 255, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(14, 103, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(14, 103, 255, 0.03) 0%, transparent 50%);
       z-index:3;
     }
     
@@ -138,7 +138,7 @@
       letter-spacing:-2px;
       max-width:100%;
       color:white;
-      text-shadow:0 4px 40px rgba(0,0,0,0.5);
+      text-shadow:0 2px 20px rgba(0,0,0,0.8), 0 4px 40px rgba(0,0,0,0.6);
       margin-bottom:24px;
     }
     .wordmark .kicker{
@@ -151,14 +151,15 @@
       text-transform:uppercase;
     }
     
-    /* Tagline/description */
+    /* Tagline/description with better contrast */
     .hero-tagline{
       font-size:clamp(18px, 2.5vw, 24px);
       line-height:1.4;
-      color:rgba(255,255,255,0.8);
+      color:rgba(255,255,255,0.9);
       margin:24px 0 40px;
       max-width:600px;
       font-weight:400;
+      text-shadow:0 2px 16px rgba(0,0,0,0.7);
     }
     
     .hero-sub{
