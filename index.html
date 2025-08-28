@@ -38,12 +38,77 @@
     .nav a{font-weight:600;text-decoration:none;opacity:.85}
     .nav a:hover{opacity:1}
 
-    /* Hero */
-    .hero{padding:80px 0 40px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-    .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0.3}
-    .hero-content{position:relative;z-index:1}
+    /* Hero with enhanced video background */
+    .hero{
+      padding:80px 0 40px;
+      border-bottom:1px solid var(--line);
+      position:relative;
+      overflow:hidden;
+      min-height:70vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .hero-video{
+      position:absolute;
+      top:50%;
+      left:50%;
+      min-width:100%;
+      min-height:100%;
+      width:auto;
+      height:auto;
+      z-index:1;
+      transform:translateX(-50%) translateY(-50%);
+      opacity:0.4;
+    }
+    
+    /* Fallback gradient overlay */
+    .hero::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+      z-index:2;
+    }
+    
+    .hero-content{
+      position:relative;
+      z-index:3;
+      color:white;
+    }
+    
+    .hero-content .wordmark .kicker{
+      color:rgba(255,255,255,0.8);
+    }
+    
+    .hero-content .pill{
+      border-color:white;
+      color:white;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+    }
+    
+    .hero-content .cta{
+      background:rgba(255,255,255,0.9);
+      color:var(--text);
+    }
+    
+    .hero-content .btn-pill{
+      background:rgba(255,255,255,0.1);
+      color:white;
+      border-color:rgba(255,255,255,0.3);
+      backdrop-filter:blur(10px);
+    }
+    
+    .hero-content .btn-pill:hover{
+      background:white;
+      color:var(--text);
+    }
+    
     .wordmark{font-size:8vw;line-height:.9;font-weight:900;letter-spacing:-1px;max-width:100%}
-    .wordmark .kicker{display:block;font-size:14px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:12px}
+    .wordmark .kicker{display:block;font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:12px}
     .hero-sub{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1.5px solid var(--text);border-radius:999px;font-weight:600}
     .pill i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e}
@@ -89,14 +154,35 @@
     footer{padding:28px 0}
     .small{color:var(--muted);font-size:14px}
 
+    /* Video loading indicator */
+    .video-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 14px;
+      z-index: 2;
+      opacity: 0.7;
+    }
+
     /* Responsive */
     @media (max-width: 960px){
       .grid-2{grid-template-columns:1fr}
       .cards{grid-template-columns:1fr}
       .wordmark{font-size:10vw}
+      .hero{min-height:60vh}
     }
     @media (max-width: 600px){
       .wordmark{font-size:9vw}
+      .hero{min-height:50vh}
+    }
+    
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -117,17 +203,23 @@
   <main id="home" class="wrap">
     <!-- HERO -->
     <section class="hero">
-      <video class="hero-video" autoplay muted loop playsinline>
+      <!-- Video with multiple format support and error handling -->
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/video-poster.jpg">
         <source src="01.mp4" type="video/mp4">
+        <source src="01.webm" type="video/webm">
+        <source src="drone1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
+      
+      <div class="video-loading" id="videoLoading">Loading video...</div>
+      
       <div class="hero-content">
         <div class="badge">FREELANCE OFFSHORE</div>
         <h1 class="wordmark"><span class="kicker">MAXIM TARARUSHKIN</span>HYDROGRAPHIC<br> SURVEYOR</h1>
         <div class="hero-sub">
           <span class="pill"><i></i>Available for projects</span>
           <a class="cta" href="#contact">Contact</a>
-          <a class="cta" href="#projects" style="background:white;color:var(--text);border:1px solid var(--line)">Projects</a>
+          <a class="cta" href="#projects" style="background:rgba(255,255,255,0.9);color:var(--text);border:1px solid rgba(255,255,255,0.3)">Projects</a>
           <!-- Optional: hero CV button, same style as action bar for consistency -->
           <a class="btn-pill" href="CV_MaximTararushkin.pdf" target="_blank" rel="noopener">
             <i class="bi bi-file-earmark-pdf-fill"></i> Download CV
@@ -392,6 +484,28 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Video loading and error handling
+    const video = document.querySelector('.hero-video');
+    const loadingIndicator = document.getElementById('videoLoading');
+    
+    if (video) {
+      video.addEventListener('loadeddata', function() {
+        loadingIndicator.style.display = 'none';
+      });
+      
+      video.addEventListener('error', function() {
+        loadingIndicator.textContent = 'Video unavailable';
+        setTimeout(() => {
+          loadingIndicator.style.display = 'none';
+        }, 3000);
+      });
+      
+      // Fallback: hide loading indicator after 5 seconds regardless
+      setTimeout(() => {
+        loadingIndicator.style.display = 'none';
+      }, 5000);
+    }
   </script>
 </body>
 </html>
