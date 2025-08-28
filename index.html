@@ -333,22 +333,64 @@
     footer{padding:40px 0}
     .small{color:var(--muted);font-size:14px}
 
-    /* Responsive design */
+    /* Responsive design with mobile video fixes */
     @media (max-width: 960px){
       .grid-2{grid-template-columns:1fr}
       .cards{grid-template-columns:repeat(2,1fr)}
       .hero{min-height:80vh;padding:0 20px}
       .hero-sub{gap:16px}
       .cta{padding:14px 24px;font-size:14px}
+      
+      /* Fix video scaling on tablets */
+      .hero-video{
+        width:100vw;
+        height:100vh;
+        object-fit:cover;
+        object-position:center center;
+      }
     }
     @media (max-width: 600px){
       .cards{grid-template-columns:1fr}
-      .hero{min-height:70vh}
+      .hero{min-height:100vh;padding:0 15px}
       .hero-sub{flex-direction:column;align-items:stretch;gap:12px}
       .cta, .btn-pill{justify-content:center}
       .kv{grid-template-columns:1fr}
       .job{grid-template-columns:1fr;gap:12px}
       .job .when{order:2;text-align:left}
+      
+      /* Mobile video optimization */
+      .hero-video{
+        width:100vw;
+        height:100vh;
+        min-width:100vw;
+        min-height:100vh;
+        object-fit:cover;
+        object-position:center center;
+        transform:translateX(-50%) translateY(-50%) scale(1.1);
+      }
+      
+      /* Adjust hero content for mobile */
+      .hero-content{
+        text-align:center;
+      }
+      
+      /* Better mobile spacing */
+      .wordmark{
+        margin-bottom:16px;
+      }
+      .hero-tagline{
+        margin:16px auto 32px;
+        text-align:center;
+      }
+      
+      /* Mobile navigation adjustments */
+      .nav{
+        height:60px;
+      }
+      .nav nav{
+        gap:16px !important;
+        font-size:14px;
+      }
     }
     
     /* Accessibility */
