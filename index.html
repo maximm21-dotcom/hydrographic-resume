@@ -40,8 +40,8 @@
 
     /* Hero */
     .hero{padding:80px 0 40px;border-bottom:1px solid var(--line)}
-    .wordmark{font-size:8vw;line-height:.9;font-weight:900;letter-spacing:-1px;max-width:100%}
-    .wordmark .kicker{display:block;font-size:14px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:12px}
+    .wordmark{font-size:12vw;line-height:.85;font-weight:900;letter-spacing:-2px}
+    .wordmark .kicker{display:block;font-size:14px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:8px}
     .hero-sub{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1.5px solid var(--text);border-radius:999px;font-weight:600}
     .pill i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e}
@@ -59,29 +59,6 @@
       color:var(--text); background:#fff; transition:all .2s ease;
     }
     .btn-pill:hover{ background:var(--text); color:#fff; }
-
-    /* Sections with background */
-    .section-with-bg {
-      background-image: url('2.png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      position: relative;
-    }
-    .section-with-bg::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(247, 247, 248, 0.85);
-      backdrop-filter: blur(2px);
-    }
-    .section-with-bg > * {
-      position: relative;
-      z-index: 1;
-    }
 
     /* Sections */
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:32px}
@@ -114,10 +91,10 @@
     @media (max-width: 960px){
       .grid-2{grid-template-columns:1fr}
       .cards{grid-template-columns:1fr}
-      .wordmark{font-size:10vw}
+      .wordmark{font-size:16vw}
     }
     @media (max-width: 600px){
-      .wordmark{font-size:9vw}
+      .wordmark{font-size:12vw}
     }
   </style>
 </head>
@@ -169,240 +146,232 @@
     </section>
 
     <!-- COMPETENCIES -->
-    <section id="competencies" class="section section-with-bg">
-      <div class="wrap">
-        <h2>Competencies</h2>
-        <div class="cards" style="margin-top:12px">
-          <div class="card">
-            <h3>Software</h3>
-            <ul>
-              <li>Qinsy, Qimera</li>
-              <li>Naviscan</li>
-              <li>APOS</li>
-              <li>Autoclean</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Hardware</h3>
-            <ul>
-              <li>MBES (Reson/R2Sonic/Kongsberg)</li>
-              <li>USBL/INS (HiPAP/Rovins)</li>
-              <li>GNSS (Trimble/CNav/Septentrio)</li>
-              <li>Cable Tracker (TSS440/TSS350)</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Certificates</h3>
-            <ul>
-              <li>FOET with CA-EBS (exp. 17 Apr 2029)</li>
-              <li>GWO BST (exp. 18 Aug 2026)</li>
-              <li>OGUK (exp. 14 Feb 2026)</li>
-              <li>STCW (exp. 13 Oct 2026)</li>
-            </ul>
-          </div>
+    <section id="competencies" class="section">
+      <h2>Competencies</h2>
+      <div class="cards" style="margin-top:12px">
+        <div class="card">
+          <h3>Software</h3>
+          <ul>
+            <li>Qinsy, Qimera</li>
+            <li>Naviscan</li>
+            <li>APOS</li>
+            <li>Autoclean</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Hardware</h3>
+          <ul>
+            <li>MBES (Reson/R2Sonic/Kongsberg)</li>
+            <li>USBL/INS (HiPAP/Rovins)</li>
+            <li>GNSS (Trimble/CNav/Septentrio)</li>
+            <li>Cable Tracker (TSS440/TSS350)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Certificates</h3>
+          <ul>
+            <li>FOET with CA-EBS (exp. 17 Apr 2029)</li>
+            <li>GWO BST (exp. 18 Aug 2026)</li>
+            <li>OGUK (exp. 14 Feb 2026)</li>
+            <li>STCW (exp. 13 Oct 2026)</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- CAREER -->
-    <section id="career" class="section section-with-bg">
-      <div class="wrap">
-        <h2>Career</h2>
-        <div class="career-list">
-          <div class="job">
-            <div>
-              <div class="role">Freelance Hydrographic Surveyor</div>
-              <div class="meta">Independent surveyor providing services for offshore renewable energy projects and marine construction support worldwide</div>
-            </div>
-            <div class="when">Jun 2024 – Present</div>
+    <section id="career" class="section">
+      <h2>Career</h2>
+      <div class="career-list">
+        <div class="job">
+          <div>
+            <div class="role">Freelance Hydrographic Surveyor</div>
+            <div class="meta">Independent surveyor providing services for offshore renewable energy projects and marine construction support worldwide</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Senior Surveyor · Jan De Nul</div>
-              <div class="meta">Extensive experience across offshore construction, subsea trenching, cable lay support and dredging operations</div>
-            </div>
-            <div class="when">Sep 2012 – May 2024</div>
+          <div class="when">Jun 2024 – Present</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Senior Surveyor · Jan De Nul</div>
+            <div class="meta">Extensive experience across offshore construction, subsea trenching, cable lay support and dredging operations</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Surveyor · Romona</div>
-              <div class="meta">Foundation experience in hydrographic surveying</div>
-            </div>
-            <div class="when">Apr 2011 – Jun 2012</div>
+          <div class="when">Sep 2012 – May 2024</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Surveyor · Romona</div>
+            <div class="meta">Foundation experience in hydrographic surveying</div>
           </div>
+          <div class="when">Apr 2011 – Jun 2012</div>
         </div>
       </div>
     </section>
 
     <!-- PROJECTS / TIMELINE -->
-    <section id="projects" class="section section-with-bg">
-      <div class="wrap">
-        <h2>Projects</h2>
-        <p class="muted">Selected offshore and coastal survey assignments. Full list available on request.</p>
-        <div class="career-list" style="margin-top:16px">
-          <!-- 2025 -->
-          <div class="job">
-            <div>
-              <div class="role">Coastal Virginia Offshore Wind (USA) — Cable Lay &amp; Burial</div>
-              <div class="meta">Company: Prysmian Powerlink · Vessel: CLB Ulisse · Scope: online survey, trenching (Vertical Injector)</div>
-            </div>
-            <div class="when">May 2025 – Present</div>
+    <section id="projects" class="section">
+      <h2>Projects</h2>
+      <p class="muted">Selected offshore and coastal survey assignments. Full list available on request.</p>
+      <div class="career-list" style="margin-top:16px">
+        <!-- 2025 -->
+        <div class="job">
+          <div>
+            <div class="role">Coastal Virginia Offshore Wind (USA) — Cable Lay &amp; Burial</div>
+            <div class="meta">Company: Prysmian Powerlink · Vessel: CLB Ulisse · Scope: online survey, trenching (Vertical Injector)</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Tyrrhenian Link (Italy) — Cable Lay</div>
-              <div class="meta">Company: Prysmian Powerlink · Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, QA/QC</div>
-            </div>
-            <div class="when">Feb 2025 – Mar 2025</div>
+          <div class="when">May 2025 – Present</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Tyrrhenian Link (Italy) — Cable Lay</div>
+            <div class="meta">Company: Prysmian Powerlink · Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, QA/QC</div>
           </div>
+          <div class="when">Feb 2025 – Mar 2025</div>
+        </div>
 
-          <div class="job">
-            <div>
-              <div class="role">Sofia Offshore Wind Farm (UK) — Cable Lay &amp; Burial</div>
-              <div class="meta">Company: Prysmian Powerlink · Online Surveyor. Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, plough with HD3</div>
-            </div>
-            <div class="when">Oct 2024 – Nov 2024</div>
+        <div class="job">
+          <div>
+            <div class="role">Sofia Offshore Wind Farm (UK) — Cable Lay &amp; Burial</div>
+            <div class="meta">Company: Prysmian Powerlink · Online Surveyor. Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, plough with HD3</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Lightning - Abu Dhabi (UAE) — Cable Lay</div>
-              <div class="meta">Company: Prysmian Powerlink · Online Surveyor. Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, touchdown monitoring</div>
-            </div>
-            <div class="when">Jul 2024 – Aug 2024</div>
+          <div class="when">Oct 2024 – Nov 2024</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Lightning - Abu Dhabi (UAE) — Cable Lay</div>
+            <div class="meta">Company: Prysmian Powerlink · Online Surveyor. Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, touchdown monitoring</div>
           </div>
-          <!-- Earlier highlights -->
-          <div class="job">
-            <div>
-              <div class="role">Lightning - Abu Dhabi (UAE)</div>
-              <div class="meta">Vessel: MPV Daniel Bernoulli · Online Surveyor. Scope: WROV/TROV mob, Pre-lay mattress installation.</div>
-            </div>
-            <div class="when">Nov 2023 – Apr 2024</div>
+          <div class="when">Jul 2024 – Aug 2024</div>
+        </div>
+        <!-- Earlier highlights -->
+        <div class="job">
+          <div>
+            <div class="role">Lightning - Abu Dhabi (UAE)</div>
+            <div class="meta">Vessel: MPV Daniel Bernoulli · Online Surveyor. Scope: WROV/TROV mob, Pre-lay mattress installation.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Formosa 2 (Taiwan) — Cable Lay</div>
-              <div class="meta">Vessel: CLV Willem De Vlamingh · Party Chief. Scope: IAC installation, cable removal.</div>
-            </div>
-            <div class="when">Aug 2023 – Sep 2023</div>
+          <div class="when">Nov 2023 – Apr 2024</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Formosa 2 (Taiwan) — Cable Lay</div>
+            <div class="meta">Vessel: CLV Willem De Vlamingh · Party Chief. Scope: IAC installation, cable removal.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Changua OWF (Taiwan) — Cable Lay &amp; Burial</div>
-              <div class="meta">Vessel: CLV Willem De Vlamingh · Party Chief. Scope: Export cable repair. Trenching of IAC.</div>
-            </div>
-            <div class="when">May 2023 – Jun 2023</div>
+          <div class="when">Aug 2023 – Sep 2023</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Changua OWF (Taiwan) — Cable Lay &amp; Burial</div>
+            <div class="meta">Vessel: CLV Willem De Vlamingh · Party Chief. Scope: Export cable repair. Trenching of IAC.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Changua OWF (Taiwan) — Mobilization</div>
-              <div class="meta">Vessel: CLV Willem De Vlamingh · Scope: Trencher PT-1 mobilization, general vessel maintenance</div>
-            </div>
-            <div class="when">Feb 2023 – Mar 2023</div>
+          <div class="when">May 2023 – Jun 2023</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Changua OWF (Taiwan) — Mobilization</div>
+            <div class="meta">Vessel: CLV Willem De Vlamingh · Scope: Trencher PT-1 mobilization, general vessel maintenance</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Fecam OWF (France) — Rock Installation Project</div>
-              <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
-            </div>
-            <div class="when">Oct 2022 – Dec 2022</div>
+          <div class="when">Feb 2023 – Mar 2023</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Fecam OWF (France) — Rock Installation Project</div>
+            <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
-              <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
-            </div>
-            <div class="when">Sep 2022 – Oct 2022</div>
+          <div class="when">Oct 2022 – Dec 2022</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
+            <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
-              <div class="meta">Vessel: MPV Daniel Bernoulli · Party Chief. Scope: Subsea rock installation with IFP.</div>
-            </div>
-            <div class="when">Apr 2022 – Jun 2022</div>
+          <div class="when">Sep 2022 – Oct 2022</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
+            <div class="meta">Vessel: MPV Daniel Bernoulli · Party Chief. Scope: Subsea rock installation with IFP.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Neart na Gaothe (UK) — Rock Installation Project</div>
-              <div class="meta">Vessel: Simon Stevin · Party Chief. Scope: Subsea rock installation with FPROV.</div>
-            </div>
-            <div class="when">Nov 2021 – Jan 2022</div>
+          <div class="when">Apr 2022 – Jun 2022</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Neart na Gaothe (UK) — Rock Installation Project</div>
+            <div class="meta">Vessel: Simon Stevin · Party Chief. Scope: Subsea rock installation with FPROV.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Tortue (Mauritania) — Rock Installation Project</div>
-              <div class="meta">Vessel: Adhémar de Saint-Venant · Online Surveyor. Scope: Subsea rock installation with IFP.</div>
-            </div>
-            <div class="when">Aug 2021 – Sep 2022</div>
+          <div class="when">Nov 2021 – Jan 2022</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Tortue (Mauritania) — Rock Installation Project</div>
+            <div class="meta">Vessel: Adhémar de Saint-Venant · Online Surveyor. Scope: Subsea rock installation with IFP.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
-              <div class="meta">Vessel: Simon Stevin · Online Surveyor. Scope: Subsea rock installation with FPROV</div>
-            </div>
-            <div class="when">Aug 2021 – Aug 2022</div>
+          <div class="when">Aug 2021 – Sep 2022</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
+            <div class="meta">Vessel: Simon Stevin · Online Surveyor. Scope: Subsea rock installation with FPROV</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Akkuyu Power Plant (Turkey) — Rock Installation &amp; Levelling Project</div>
-              <div class="meta">Vessel: MPV Daniel Bernoulli · Party Chief. Scope: Subsea rock installation with IFP.</div>
-            </div>
-            <div class="when">May 2021 – Jun 2022</div>
+          <div class="when">Aug 2021 – Aug 2022</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Akkuyu Power Plant (Turkey) — Rock Installation &amp; Levelling Project</div>
+            <div class="meta">Vessel: MPV Daniel Bernoulli · Party Chief. Scope: Subsea rock installation with IFP.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Changua OWF (Taiwan) — Subsea Leveling Project</div>
-              <div class="meta">Vessel: THSD Francis Beaufort · Surveyor. Scope: Mobilization, support dredging activities.</div>
-            </div>
-            <div class="when">Jan 2021 – Mar 2022</div>
+          <div class="when">May 2021 – Jun 2022</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Changua OWF (Taiwan) — Subsea Leveling Project</div>
+            <div class="meta">Vessel: THSD Francis Beaufort · Surveyor. Scope: Mobilization, support dredging activities.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Kirinskoye GCF (Russia) — Rock Installation Project</div>
-              <div class="meta">Vessel: Joseph Plateau · Party Chief. Scope: Subsea rock installation with FPROV.</div>
-            </div>
-            <div class="when">Jun 2020 – Sep 2020</div>
+          <div class="when">Jan 2021 – Mar 2022</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Kirinskoye GCF (Russia) — Rock Installation Project</div>
+            <div class="meta">Vessel: Joseph Plateau · Party Chief. Scope: Subsea rock installation with FPROV.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Hainan II (China) — Rock Installation Project</div>
-              <div class="meta">Vessel: Joseph Plateau · Online Surveyor: Subsea rock installation with FPROV.</div>
-            </div>
-            <div class="when">Dec 2019 – Feb 2020</div>
+          <div class="when">Jun 2020 – Sep 2020</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Hainan II (China) — Rock Installation Project</div>
+            <div class="meta">Vessel: Joseph Plateau · Online Surveyor: Subsea rock installation with FPROV.</div>
           </div>
-          <div class="job">
-            <div>
-              <div class="role">Jindo &amp; Jeju Island (S. Korea) — Rock Installation Project</div>
-              <div class="meta">Vessel: Joseph Plateau · Online Surveyor: Subsea rock installation with FPROV.</div>
-            </div>
-            <div class="when">Jul 2019 – Aug 2020</div>
+          <div class="when">Dec 2019 – Feb 2020</div>
+        </div>
+        <div class="job">
+          <div>
+            <div class="role">Jindo &amp; Jeju Island (S. Korea) — Rock Installation Project</div>
+            <div class="meta">Vessel: Joseph Plateau · Online Surveyor: Subsea rock installation with FPROV.</div>
           </div>
+          <div class="when">Jul 2019 – Aug 2020</div>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section section-with-bg">
-      <div class="wrap">
-        <div class="grid-2">
-          <div>
-            <h2>Contact</h2>
-            <p class="muted">For project enquiries and availability, reach out directly.</p>
-          </div>
-          <div>
-            <div class="action-bar">
-              <a class="btn-pill" href="mailto:maximm21@gmail.com">
-                <i class="bi bi-envelope-fill"></i> Email
-              </a>
-              <a class="btn-pill" href="https://wa.me/44753712736" target="_blank" rel="noreferrer">
-                <i class="bi bi-whatsapp"></i> WhatsApp
-              </a>
-              <a class="btn-pill" href="https://www.linkedin.com/in/maximtararushkin" target="_blank" rel="noreferrer">
-                <i class="bi bi-linkedin"></i> LinkedIn
-              </a>
-              <a class="btn-pill" href="CV_MaximTararushkin.pdf" target="_blank" rel="noopener">
-                <i class="bi bi-file-earmark-pdf-fill"></i> Download CV
-              </a>
-            </div>
+    <section id="contact" class="section">
+      <div class="grid-2">
+        <div>
+          <h2>Contact</h2>
+          <p class="muted">For project enquiries and availability, reach out directly.</p>
+        </div>
+        <div>
+          <div class="action-bar">
+            <a class="btn-pill" href="mailto:maximm21@gmail.com">
+              <i class="bi bi-envelope-fill"></i> Email
+            </a>
+            <a class="btn-pill" href="https://wa.me/44753712736" target="_blank" rel="noreferrer">
+              <i class="bi bi-whatsapp"></i> WhatsApp
+            </a>
+            <a class="btn-pill" href="https://www.linkedin.com/in/maximtararushkin" target="_blank" rel="noreferrer">
+              <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+            <a class="btn-pill" href="CV_MaximTararushkin.pdf" target="_blank" rel="noopener">
+              <i class="bi bi-file-earmark-pdf-fill"></i> Download CV
+            </a>
           </div>
         </div>
       </div>
