@@ -31,79 +31,336 @@
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);}    
     a{color:inherit}
 
-    /* Top bar */
-    .top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.8);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
-    .wrap{max-width:var(--max);margin:auto;padding:0 20px}
-    .nav{display:flex;gap:18px;align-items:center;justify-content:space-between;height:64px}
-    .nav a{font-weight:600;text-decoration:none;opacity:.85}
-    .nav a:hover{opacity:1}
-
-    /* Hero */
-    .hero{padding:80px 0 40px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-    .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0.3}
-    .hero-content{position:relative;z-index:1}
-    .wordmark{font-size:8vw;line-height:.9;font-weight:900;letter-spacing:-1px;max-width:100%}
-    .wordmark .kicker{display:block;font-size:14px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:12px}
-    .hero-sub{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1.5px solid var(--text);border-radius:999px;font-weight:600}
-    .pill i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e}
-
-    /* Generic CTA (kept for hero links) */
-    .cta{display:inline-flex;gap:12px;align-items:center;padding:12px 16px;border-radius:12px;background:var(--text);color:white;text-decoration:none;font-weight:700}
-    .cta:hover{transform:translateY(-1px)}
-
-    /* Pill buttons + action bar (for Email, WhatsApp, LinkedIn, CV) */
-    .action-bar{display:flex; flex-wrap:wrap; gap:12px; margin-top:12px}
-    .btn-pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 18px; border:1.5px solid var(--line);
-      border-radius:999px; text-decoration:none; font-weight:600;
-      color:var(--text); background:#fff; transition:all .2s ease;
+    /* Top bar with Maritime Robotics style */
+    .top{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:100;
+      background:rgba(0,0,0,0.1);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(255,255,255,0.1);
+      transition:all 0.3s ease;
     }
-    .btn-pill:hover{ background:var(--text); color:#fff; }
+    .top.scrolled{
+      background:rgba(0,0,0,0.95);
+      border-bottom:1px solid rgba(255,255,255,0.2);
+    }
+    .wrap{max-width:var(--max);margin:auto;padding:0 20px}
+    .nav{display:flex;gap:18px;align-items:center;justify-content:space-between;height:70px}
+    .nav a{font-weight:600;text-decoration:none;color:white;opacity:0.8;transition:all 0.3s ease}
+    .nav a:hover{opacity:1;color:var(--brand)}
 
-    /* Sections */
+    /* Maritime Robotics-inspired Hero Section */
+    .hero{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      background:#000;
+    }
+    
+    /* Video background with Maritime Robotics treatment */
+    .hero-video{
+      position:absolute;
+      top:50%;
+      left:50%;
+      min-width:100%;
+      min-height:100%;
+      width:auto;
+      height:auto;
+      z-index:1;
+      transform:translateX(-50%) translateY(-50%);
+      filter:brightness(0.35) contrast(1.2) saturate(1.1);
+    }
+    
+    /* Multi-layered overlay system like Maritime Robotics */
+    .hero::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:linear-gradient(
+        135deg, 
+        rgba(14, 103, 255, 0.7) 0%, 
+        rgba(11, 18, 32, 0.8) 40%,
+        rgba(0, 0, 0, 0.9) 100%
+      );
+      z-index:2;
+    }
+    
+    /* Subtle tech pattern overlay */
+    .hero::after{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(14, 103, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(14, 103, 255, 0.05) 0%, transparent 50%);
+      z-index:3;
+    }
+    
+    .hero-content{
+      position:relative;
+      z-index:10;
+      color:white;
+      max-width:100%;
+    }
+    
+    /* Maritime-style badge */
+    .badge{
+      display:inline-block;
+      font-weight:700;
+      font-size:11px;
+      letter-spacing:3px;
+      color:rgba(255,255,255,0.9);
+      background:rgba(14, 103, 255, 0.15);
+      padding:10px 20px;
+      border-radius:4px;
+      border:1px solid rgba(14, 103, 255, 0.3);
+      backdrop-filter:blur(10px);
+      margin-bottom:32px;
+      text-transform:uppercase;
+    }
+    
+    /* Typography inspired by Maritime Robotics */
+    .wordmark{
+      font-size:clamp(48px, 7vw, 84px);
+      line-height:0.95;
+      font-weight:900;
+      letter-spacing:-2px;
+      max-width:100%;
+      color:white;
+      text-shadow:0 4px 40px rgba(0,0,0,0.5);
+      margin-bottom:24px;
+    }
+    .wordmark .kicker{
+      display:block;
+      font-size:clamp(14px, 2.5vw, 18px);
+      font-weight:600;
+      letter-spacing:2px;
+      color:rgba(255,255,255,0.8);
+      margin-bottom:16px;
+      text-transform:uppercase;
+    }
+    
+    /* Tagline/description */
+    .hero-tagline{
+      font-size:clamp(18px, 2.5vw, 24px);
+      line-height:1.4;
+      color:rgba(255,255,255,0.8);
+      margin:24px 0 40px;
+      max-width:600px;
+      font-weight:400;
+    }
+    
+    .hero-sub{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:40px;
+    }
+    
+    /* Status pill with Maritime Robotics styling */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 24px;
+      border:1px solid rgba(0, 255, 136, 0.4);
+      border-radius:6px;
+      font-weight:600;
+      background:rgba(0, 255, 136, 0.1);
+      backdrop-filter:blur(10px);
+      color:white;
+      font-size:14px;
+    }
+    .pill i{
+      display:inline-block;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#00ff88;
+      box-shadow:0 0 12px #00ff88;
+      animation:pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Maritime Robotics-style CTA buttons */
+    .cta{
+      display:inline-flex;
+      gap:12px;
+      align-items:center;
+      padding:16px 32px;
+      border-radius:6px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:15px;
+      transition:all 0.3s ease;
+      border:none;
+      cursor:pointer;
+    }
+    
+    .cta.primary{
+      background:linear-gradient(135deg, var(--brand) 0%, #0056d6 100%);
+      color:white;
+      box-shadow:0 4px 24px rgba(14, 103, 255, 0.3);
+    }
+    .cta.primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 32px rgba(14, 103, 255, 0.4);
+    }
+    
+    .cta.secondary{
+      background:rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.3);
+      backdrop-filter:blur(10px);
+      color:white;
+    }
+    .cta.secondary:hover{
+      background:rgba(255,255,255,0.2);
+      border-color:rgba(255,255,255,0.5);
+    }
+
+    /* Download CV button with subtle styling */
+    .btn-pill{
+      display:inline-flex; 
+      align-items:center; 
+      gap:8px;
+      padding:12px 20px; 
+      border:1px solid rgba(255,255,255,0.3);
+      border-radius:6px; 
+      text-decoration:none; 
+      font-weight:600;
+      color:rgba(255,255,255,0.8); 
+      background:rgba(255,255,255,0.05); 
+      backdrop-filter:blur(10px);
+      transition:all .3s ease;
+      font-size:14px;
+    }
+    .btn-pill:hover{ 
+      background:rgba(255,255,255,0.15); 
+      border-color:rgba(255,255,255,0.5);
+      color:white;
+    }
+
+    /* Sections with refined styling */
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-    .section{padding:64px 0;border-bottom:1px solid var(--line)}
-    h2{font-size:44px;line-height:1.05;margin:0 0 12px}
-    p{margin:0 0 12px;color:var(--muted)}
-    ul{margin:0;padding-left:16px;color:var(--muted)}
-    .badge{display:inline-block;font-weight:700;font-size:12px;letter-spacing:1px;color:#111;background:linear-gradient(90deg,var(--brand-2),#fff3a0);padding:6px 10px;border-radius:999px;border:1px solid #e7d76a}
+    .section{padding:80px 0;border-bottom:1px solid var(--line)}
+    h2{font-size:clamp(36px, 5vw, 48px);line-height:1.1;margin:0 0 16px;font-weight:800}
+    p{margin:0 0 16px;color:var(--muted);line-height:1.6}
+    ul{margin:0;padding-left:20px;color:var(--muted)}
+    li{margin-bottom:8px;line-height:1.5}
 
-    /* Competencies cards */
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:white;border:1px solid var(--line);border-radius:14px;padding:18px}
-    .card h3{margin:0 0 8px;font-size:18px}
-    .kv{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .kv div{padding:10px 12px;border:1px dashed var(--line);border-radius:10px}
+    /* Enhanced competencies cards */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px}
+    .card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:24px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
+      transition:all 0.3s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 24px rgba(0,0,0,0.1);
+    }
+    .card h3{margin:0 0 16px;font-size:20px;font-weight:700}
+    .kv{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .kv div{
+      padding:20px;
+      border:2px dashed var(--line);
+      border-radius:12px;
+      text-align:center;
+      transition:all 0.3s ease;
+    }
+    .kv div:hover{
+      border-color:var(--brand);
+      background:rgba(14, 103, 255, 0.02);
+    }
     .muted{color:var(--muted)}
 
-    /* Career list */
-    .career-list{display:grid;gap:12px;margin-top:12px}
-    .job{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:8px}
-    .job .when{font-weight:700;color:var(--brand)}
-    .job .role{font-weight:700}
-    .job .meta{color:var(--muted);font-size:14px}
+    /* Enhanced career/project cards */
+    .career-list{display:grid;gap:16px;margin-top:20px}
+    .job{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:24px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:16px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
+      transition:all 0.3s ease;
+    }
+    .job:hover{
+      transform:translateY(-1px);
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    }
+    .job .when{font-weight:700;color:var(--brand);font-size:14px}
+    .job .role{font-weight:700;margin-bottom:8px;font-size:18px}
+    .job .meta{color:var(--muted);font-size:15px;line-height:1.5}
+
+    /* Contact section with refined action bar */
+    .action-bar{display:flex; flex-wrap:wrap; gap:12px; margin-top:20px}
+    .action-bar .btn-pill{
+      color:var(--text); 
+      background:#fff; 
+      border:1.5px solid var(--line);
+      backdrop-filter:none;
+    }
+    .action-bar .btn-pill:hover{ 
+      background:var(--text); 
+      color:#fff;
+      transform:translateY(-1px);
+    }
 
     /* Footer */
-    footer{padding:28px 0}
+    footer{padding:40px 0}
     .small{color:var(--muted);font-size:14px}
 
-    /* Responsive */
+    /* Responsive design */
     @media (max-width: 960px){
       .grid-2{grid-template-columns:1fr}
-      .cards{grid-template-columns:1fr}
-      .wordmark{font-size:10vw}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .hero{min-height:80vh;padding:0 20px}
+      .hero-sub{gap:16px}
+      .cta{padding:14px 24px;font-size:14px}
     }
     @media (max-width: 600px){
-      .wordmark{font-size:9vw}
+      .cards{grid-template-columns:1fr}
+      .hero{min-height:70vh}
+      .hero-sub{flex-direction:column;align-items:stretch;gap:12px}
+      .cta, .btn-pill{justify-content:center}
+      .kv{grid-template-columns:1fr}
+      .job{grid-template-columns:1fr;gap:12px}
+      .job .when{order:2;text-align:left}
+    }
+    
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video, .pill i { animation: none; }
+      * { transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <header class="top">
+  <header class="top" id="navbar">
     <div class="wrap nav">
-      <nav style="display:flex;gap:16px;flex-wrap:wrap;width:100%;justify-content:center">
+      <nav style="display:flex;gap:24px;flex-wrap:wrap;width:100%;justify-content:center">
         <a href="#about">About</a>
         <a href="#competencies">Competencies</a>
         <a href="#career">Career</a>
@@ -114,269 +371,29 @@
     </div>
   </header>
 
-  <main id="home" class="wrap">
-    <!-- HERO -->
+  <main id="home">
+    <!-- HERO SECTION -->
     <section class="hero">
-      <video class="hero-video" autoplay muted loop playsinline>
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
         <source src="01.mp4" type="video/mp4">
+        <source src="drone1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-      <div class="hero-content">
-        <div class="badge">FREELANCE OFFSHORE</div>
-        <h1 class="wordmark"><span class="kicker">MAXIM TARARUSHKIN</span>HYDROGRAPHIC<br> SURVEYOR</h1>
-        <div class="hero-sub">
-          <span class="pill"><i></i>Available for projects</span>
-          <a class="cta" href="#contact">Contact</a>
-          <a class="cta" href="#projects" style="background:white;color:var(--text);border:1px solid var(--line)">Projects</a>
-          <!-- Optional: hero CV button, same style as action bar for consistency -->
-          <a class="btn-pill" href="CV_MaximTararushkin.pdf" target="_blank" rel="noopener">
-            <i class="bi bi-file-earmark-pdf-fill"></i> Download CV
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="section grid-2">
-      <div>
-        <h2>About</h2>
-        <p>Experienced hydrographic surveyor. Specialized in renewable energy projects including cable installation and trenching for offshore wind farms and offshore construction.</p>
-        <p><strong>Languages:</strong> English · Russian</p>
-      </div>
-      <div>
-        <div class="kv">
-          <div><strong>15+</strong><br><span class="muted">Years Experience</span></div>
-          <div><strong>20+</strong><br><span class="muted">Countries</span></div>
-          <div><strong>10+</strong><br><span class="muted">Vessels</span></div>
-          <div><strong>40+</strong><br><span class="muted">Projects</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPETENCIES -->
-    <section id="competencies" class="section">
-      <h2>Competencies</h2>
-      <div class="cards" style="margin-top:12px">
-        <div class="card">
-          <h3>Software</h3>
-          <ul>
-            <li>Qinsy, Qimera</li>
-            <li>Naviscan</li>
-            <li>APOS</li>
-            <li>Autoclean</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Hardware</h3>
-          <ul>
-            <li>MBES (Reson/R2Sonic/Kongsberg)</li>
-            <li>USBL/INS (HiPAP/Rovins)</li>
-            <li>GNSS (Trimble/CNav/Septentrio)</li>
-            <li>Cable Tracker (TSS440/TSS350)</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Certificates</h3>
-          <ul>
-            <li>FOET with CA-EBS (exp. 17 Apr 2029)</li>
-            <li>GWO BST (exp. 18 Aug 2026)</li>
-            <li>OGUK (exp. 14 Feb 2026)</li>
-            <li>STCW (exp. 13 Oct 2026)</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CAREER -->
-    <section id="career" class="section">
-      <h2>Career</h2>
-      <div class="career-list">
-        <div class="job">
-          <div>
-            <div class="role">Freelance Hydrographic Surveyor</div>
-            <div class="meta">Independent surveyor providing services for offshore renewable energy projects and marine construction support worldwide</div>
-          </div>
-          <div class="when">Jun 2024 – Present</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Senior Surveyor · Jan De Nul</div>
-            <div class="meta">Extensive experience across offshore construction, subsea trenching, cable lay support and dredging operations</div>
-          </div>
-          <div class="when">Sep 2012 – May 2024</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Surveyor · Romona</div>
-            <div class="meta">Foundation experience in hydrographic surveying</div>
-          </div>
-          <div class="when">Apr 2011 – Jun 2012</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS / TIMELINE -->
-    <section id="projects" class="section">
-      <h2>Projects</h2>
-      <p class="muted">Selected offshore and coastal survey assignments. Full list available on request.</p>
-      <div class="career-list" style="margin-top:16px">
-        <!-- 2025 -->
-        <div class="job">
-          <div>
-            <div class="role">Coastal Virginia Offshore Wind (USA) — Cable Lay &amp; Burial</div>
-            <div class="meta">Company: Prysmian Powerlink · Vessel: CLB Ulisse · Scope: online survey, trenching (Vertical Injector)</div>
-          </div>
-          <div class="when">May 2025 – Present</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Tyrrhenian Link (Italy) — Cable Lay</div>
-            <div class="meta">Company: Prysmian Powerlink · Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, QA/QC</div>
-          </div>
-          <div class="when">Feb 2025 – Mar 2025</div>
-        </div>
-
-        <div class="job">
-          <div>
-            <div class="role">Sofia Offshore Wind Farm (UK) — Cable Lay &amp; Burial</div>
-            <div class="meta">Company: Prysmian Powerlink · Online Surveyor. Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, plough with HD3</div>
-          </div>
-          <div class="when">Oct 2024 – Nov 2024</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Lightning - Abu Dhabi (UAE) — Cable Lay</div>
-            <div class="meta">Company: Prysmian Powerlink · Online Surveyor. Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, touchdown monitoring</div>
-          </div>
-          <div class="when">Jul 2024 – Aug 2024</div>
-        </div>
-        <!-- Earlier highlights -->
-        <div class="job">
-          <div>
-            <div class="role">Lightning - Abu Dhabi (UAE)</div>
-            <div class="meta">Vessel: MPV Daniel Bernoulli · Online Surveyor. Scope: WROV/TROV mob, Pre-lay mattress installation.</div>
-          </div>
-          <div class="when">Nov 2023 – Apr 2024</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Formosa 2 (Taiwan) — Cable Lay</div>
-            <div class="meta">Vessel: CLV Willem De Vlamingh · Party Chief. Scope: IAC installation, cable removal.</div>
-          </div>
-          <div class="when">Aug 2023 – Sep 2023</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Changua OWF (Taiwan) — Cable Lay &amp; Burial</div>
-            <div class="meta">Vessel: CLV Willem De Vlamingh · Party Chief. Scope: Export cable repair. Trenching of IAC.</div>
-          </div>
-          <div class="when">May 2023 – Jun 2023</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Changua OWF (Taiwan) — Mobilization</div>
-            <div class="meta">Vessel: CLV Willem De Vlamingh · Scope: Trencher PT-1 mobilization, general vessel maintenance</div>
-          </div>
-          <div class="when">Feb 2023 – Mar 2023</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Fecam OWF (France) — Rock Installation Project</div>
-            <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
-          </div>
-          <div class="when">Oct 2022 – Dec 2022</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
-            <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
-          </div>
-          <div class="when">Sep 2022 – Oct 2022</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
-            <div class="meta">Vessel: MPV Daniel Bernoulli · Party Chief. Scope: Subsea rock installation with IFP.</div>
-          </div>
-          <div class="when">Apr 2022 – Jun 2022</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Neart na Gaothe (UK) — Rock Installation Project</div>
-            <div class="meta">Vessel: Simon Stevin · Party Chief. Scope: Subsea rock installation with FPROV.</div>
-          </div>
-          <div class="when">Nov 2021 – Jan 2022</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Tortue (Mauritania) — Rock Installation Project</div>
-            <div class="meta">Vessel: Adhémar de Saint-Venant · Online Surveyor. Scope: Subsea rock installation with IFP.</div>
-          </div>
-          <div class="when">Aug 2021 – Sep 2022</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
-            <div class="meta">Vessel: Simon Stevin · Online Surveyor. Scope: Subsea rock installation with FPROV</div>
-          </div>
-          <div class="when">Aug 2021 – Aug 2022</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Akkuyu Power Plant (Turkey) — Rock Installation &amp; Levelling Project</div>
-            <div class="meta">Vessel: MPV Daniel Bernoulli · Party Chief. Scope: Subsea rock installation with IFP.</div>
-          </div>
-          <div class="when">May 2021 – Jun 2022</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Changua OWF (Taiwan) — Subsea Leveling Project</div>
-            <div class="meta">Vessel: THSD Francis Beaufort · Surveyor. Scope: Mobilization, support dredging activities.</div>
-          </div>
-          <div class="when">Jan 2021 – Mar 2022</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Kirinskoye GCF (Russia) — Rock Installation Project</div>
-            <div class="meta">Vessel: Joseph Plateau · Party Chief. Scope: Subsea rock installation with FPROV.</div>
-          </div>
-          <div class="when">Jun 2020 – Sep 2020</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Hainan II (China) — Rock Installation Project</div>
-            <div class="meta">Vessel: Joseph Plateau · Online Surveyor: Subsea rock installation with FPROV.</div>
-          </div>
-          <div class="when">Dec 2019 – Feb 2020</div>
-        </div>
-        <div class="job">
-          <div>
-            <div class="role">Jindo &amp; Jeju Island (S. Korea) — Rock Installation Project</div>
-            <div class="meta">Vessel: Joseph Plateau · Online Surveyor: Subsea rock installation with FPROV.</div>
-          </div>
-          <div class="when">Jul 2019 – Aug 2020</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section">
-      <div class="grid-2">
-        <div>
-          <h2>Contact</h2>
-          <p class="muted">For project enquiries and availability, reach out directly.</p>
-        </div>
-        <div>
-          <div class="action-bar">
-            <a class="btn-pill" href="mailto:maximm21@gmail.com">
-              <i class="bi bi-envelope-fill"></i> Email
-            </a>
-            <a class="btn-pill" href="https://wa.me/44753712736" target="_blank" rel="noreferrer">
-              <i class="bi bi-whatsapp"></i> WhatsApp
-            </a>
-            <a class="btn-pill" href="https://www.linkedin.com/in/maximtararushkin" target="_blank" rel="noreferrer">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
+      
+      <div class="wrap">
+        <div class="hero-content">
+          <div class="badge">Freelance Offshore Specialist</div>
+          <h1 class="wordmark">
+            <span class="kicker">Maxim Tararushkin</span>
+            Hydrographic<br>Surveyor
+          </h1>
+          <p class="hero-tagline">
+            15+ years offshore survey experience across cable lay & burial, trenching, and subsea rock installation for renewable energy projects worldwide.
+          </p>
+          <div class="hero-sub">
+            <span class="pill"><i></i>Available for Projects</span>
+            <a class="cta primary" href="#contact">Get in Touch</a>
+            <a class="cta secondary" href="#projects">View Projects</a>
             <a class="btn-pill" href="CV_MaximTararushkin.pdf" target="_blank" rel="noopener">
               <i class="bi bi-file-earmark-pdf-fill"></i> Download CV
             </a>
@@ -385,13 +402,303 @@
       </div>
     </section>
 
-    <footer class="section" style="border-bottom:none">
-      <div class="small">© <span id="year"></span> Maxim Tararushkin · All rights reserved</div>
-    </footer>
+    <div class="wrap">
+      <!-- ABOUT -->
+      <section id="about" class="section grid-2">
+        <div>
+          <h2>About</h2>
+          <p>Experienced hydrographic surveyor specialized in renewable energy projects including cable installation and trenching for offshore wind farms and offshore construction.</p>
+          <p><strong>Languages:</strong> English · Russian</p>
+        </div>
+        <div>
+          <div class="kv">
+            <div><strong>15+</strong><br><span class="muted">Years Experience</span></div>
+            <div><strong>20+</strong><br><span class="muted">Countries</span></div>
+            <div><strong>10+</strong><br><span class="muted">Vessels</span></div>
+            <div><strong>40+</strong><br><span class="muted">Projects</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPETENCIES -->
+      <section id="competencies" class="section">
+        <h2>Competencies</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Software</h3>
+            <ul>
+              <li>Qinsy, Qimera</li>
+              <li>Naviscan</li>
+              <li>APOS</li>
+              <li>Autoclean</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Hardware</h3>
+            <ul>
+              <li>MBES (Reson/R2Sonic/Kongsberg)</li>
+              <li>USBL/INS (HiPAP/Rovins)</li>
+              <li>GNSS (Trimble/CNav/Septentrio)</li>
+              <li>Cable Tracker (TSS440/TSS350)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Certificates</h3>
+            <ul>
+              <li>FOET with CA-EBS (exp. 17 Apr 2029)</li>
+              <li>GWO BST (exp. 18 Aug 2026)</li>
+              <li>OGUK (exp. 14 Feb 2026)</li>
+              <li>STCW (exp. 13 Oct 2026)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAREER -->
+      <section id="career" class="section">
+        <h2>Career</h2>
+        <div class="career-list">
+          <div class="job">
+            <div>
+              <div class="role">Freelance Hydrographic Surveyor</div>
+              <div class="meta">Independent surveyor providing services for offshore renewable energy projects and marine construction support worldwide</div>
+            </div>
+            <div class="when">Jun 2024 – Present</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Senior Surveyor · Jan De Nul</div>
+              <div class="meta">Extensive experience across offshore construction, subsea trenching, cable lay support and dredging operations</div>
+            </div>
+            <div class="when">Sep 2012 – May 2024</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Surveyor · Romona</div>
+              <div class="meta">Foundation experience in hydrographic surveying</div>
+            </div>
+            <div class="when">Apr 2011 – Jun 2012</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="section">
+        <h2>Projects</h2>
+        <p class="muted">Selected offshore and coastal survey assignments. Full list available on request.</p>
+        <div class="career-list">
+          <!-- 2025 -->
+          <div class="job">
+            <div>
+              <div class="role">Coastal Virginia Offshore Wind (USA) — Cable Lay & Burial</div>
+              <div class="meta">Company: Prysmian Powerlink · Vessel: CLB Ulisse · Scope: online survey, trenching (Vertical Injector)</div>
+            </div>
+            <div class="when">May 2025 – Present</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Tyrrhenian Link (Italy) — Cable Lay</div>
+              <div class="meta">Company: Prysmian Powerlink · Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, QA/QC</div>
+            </div>
+            <div class="when">Feb 2025 – Mar 2025</div>
+          </div>
+
+          <div class="job">
+            <div>
+              <div class="role">Sofia Offshore Wind Farm (UK) — Cable Lay & Burial</div>
+              <div class="meta">Company: Prysmian Powerlink · Online Surveyor. Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, plough with HD3</div>
+            </div>
+            <div class="when">Oct 2024 – Nov 2024</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Lightning - Abu Dhabi (UAE) — Cable Lay</div>
+              <div class="meta">Company: Prysmian Powerlink · Online Surveyor. Vessel: CLV Leonardo Da Vinci · Scope: cable lay support, touchdown monitoring</div>
+            </div>
+            <div class="when">Jul 2024 – Aug 2024</div>
+          </div>
+          <!-- Earlier highlights -->
+          <div class="job">
+            <div>
+              <div class="role">Lightning - Abu Dhabi (UAE)</div>
+              <div class="meta">Vessel: MPV Daniel Bernoulli · Online Surveyor. Scope: WROV/TROV mob, Pre-lay mattress installation.</div>
+            </div>
+            <div class="when">Nov 2023 – Apr 2024</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Formosa 2 (Taiwan) — Cable Lay</div>
+              <div class="meta">Vessel: CLV Willem De Vlamingh · Party Chief. Scope: IAC installation, cable removal.</div>
+            </div>
+            <div class="when">Aug 2023 – Sep 2023</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Changua OWF (Taiwan) — Cable Lay & Burial</div>
+              <div class="meta">Vessel: CLV Willem De Vlamingh · Party Chief. Scope: Export cable repair. Trenching of IAC.</div>
+            </div>
+            <div class="when">May 2023 – Jun 2023</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Changua OWF (Taiwan) — Mobilization</div>
+              <div class="meta">Vessel: CLV Willem De Vlamingh · Scope: Trencher PT-1 mobilization, general vessel maintenance</div>
+            </div>
+            <div class="when">Feb 2023 – Mar 2023</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Fecam OWF (France) — Rock Installation Project</div>
+              <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
+            </div>
+            <div class="when">Oct 2022 – Dec 2022</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
+              <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
+            </div>
+            <div class="when">Sep 2022 – Oct 2022</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
+              <div class="meta">Vessel: MPV Daniel Bernoulli · Party Chief. Scope: Subsea rock installation with IFP.</div>
+            </div>
+            <div class="when">Apr 2022 – Jun 2022</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Neart na Gaothe (UK) — Rock Installation Project</div>
+              <div class="meta">Vessel: Simon Stevin · Party Chief. Scope: Subsea rock installation with FPROV.</div>
+            </div>
+            <div class="when">Nov 2021 – Jan 2022</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Tortue (Mauritania) — Rock Installation Project</div>
+              <div class="meta">Vessel: Adhémar de Saint-Venant · Online Surveyor. Scope: Subsea rock installation with IFP.</div>
+            </div>
+            <div class="when">Aug 2021 – Sep 2022</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
+              <div class="meta">Vessel: Simon Stevin · Online Surveyor. Scope: Subsea rock installation with FPROV</div>
+            </div>
+            <div class="when">Aug 2021 – Aug 2022</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Akkuyu Power Plant (Turkey) — Rock Installation & Levelling Project</div>
+              <div class="meta">Vessel: MPV Daniel Bernoulli · Party Chief. Scope: Subsea rock installation with IFP.</div>
+            </div>
+            <div class="when">May 2021 – Jun 2022</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Changua OWF (Taiwan) — Subsea Leveling Project</div>
+              <div class="meta">Vessel: THSD Francis Beaufort · Surveyor. Scope: Mobilization, support dredging activities.</div>
+            </div>
+            <div class="when">Jan 2021 – Mar 2022</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Kirinskoye GCF (Russia) — Rock Installation Project</div>
+              <div class="meta">Vessel: Joseph Plateau · Party Chief. Scope: Subsea rock installation with FPROV.</div>
+            </div>
+            <div class="when">Jun 2020 – Sep 2020</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Hainan II (China) — Rock Installation Project</div>
+              <div class="meta">Vessel: Joseph Plateau · Online Surveyor: Subsea rock installation with FPROV.</div>
+            </div>
+            <div class="when">Dec 2019 – Feb 2020</div>
+          </div>
+          <div class="job">
+            <div>
+              <div class="role">Jindo & Jeju Island (S. Korea) — Rock Installation Project</div>
+              <div class="meta">Vessel: Joseph Plateau · Online Surveyor: Subsea rock installation with FPROV.</div>
+            </div>
+            <div class="when">Jul 2019 – Aug 2020</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section">
+        <div class="grid-2">
+          <div>
+            <h2>Contact</h2>
+            <p class="muted">For project enquiries and availability, reach out directly.</p>
+          </div>
+          <div>
+            <div class="action-bar">
+              <a class="btn-pill" href="mailto:maximm21@gmail.com">
+                <i class="bi bi-envelope-fill"></i> Email
+              </a>
+              <a class="btn-pill" href="https://wa.me/44753712736" target="_blank" rel="noreferrer">
+                <i class="bi bi-whatsapp"></i> WhatsApp
+              </a>
+              <a class="btn-pill" href="https://www.linkedin.com/in/maximtararushkin" target="_blank" rel="noreferrer">
+                <i class="bi bi-linkedin"></i> LinkedIn
+              </a>
+              <a class="btn-pill" href="CV_MaximTararushkin.pdf" target="_blank" rel="noopener">
+                <i class="bi bi-file-earmark-pdf-fill"></i> Download CV
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="section" style="border-bottom:none">
+        <div class="small">© <span id="year"></span> Maxim Tararushkin · All rights reserved</div>
+      </footer>
+    </div>
   </main>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Maritime Robotics-style navbar behavior
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Video loading and error handling
+    const video = document.querySelector('.hero-video');
+    if (video) {
+      video.addEventListener('loadeddata', function() {
+        console.log('Video loaded successfully');
+      });
+      
+      video.addEventListener('error', function() {
+        console.log('Video failed to load');
+        // Fallback: enhance the gradient background
+        const hero = document.querySelector('.hero');
+        hero.style.background = 'linear-gradient(135deg, rgba(14, 103, 255, 0.9) 0%, rgba(11, 18, 32, 1) 100%)';
+      });
+    }
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
   </script>
 </body>
 </html>
