@@ -117,7 +117,11 @@
       align-items:flex-end;
       overflow:hidden;
       background:#000;
+    }
+    
+    .hero .wrap{
       padding-bottom:80px;
+      padding-top:120px;
     }
     
     /* Video background with increased visibility */
@@ -169,7 +173,7 @@
       position:relative;
       z-index:10;
       color:white;
-      max-width:100%;
+      max-width:700px;
     }
     
     /* Maritime-style badge */
@@ -406,7 +410,7 @@
     @media (max-width: 960px){
       .grid-2{grid-template-columns:1fr}
       .cards{grid-template-columns:repeat(2,1fr)}
-      .hero{min-height:80vh;padding:0 20px 60px}
+      .hero .wrap{padding-bottom:60px;padding-top:100px}
       .hero-sub{gap:16px}
       .cta{padding:14px 24px;font-size:14px}
       
@@ -424,14 +428,18 @@
       
       /* Center hero content on mobile */
       .hero{
-        min-height:100vh;
-        padding:0 15px 40px;
         align-items:center;
         justify-content:center;
       }
       
+      .hero .wrap{
+        padding-bottom:40px;
+        padding-top:80px;
+      }
+      
       .hero-content{
         text-align:center;
+        max-width:100%;
       }
       
       .hero-tagline{
