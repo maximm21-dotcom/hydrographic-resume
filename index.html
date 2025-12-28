@@ -109,14 +109,15 @@
     .nav a{font-weight:600;text-decoration:none;color:white;opacity:0.8;transition:all 0.3s ease}
     .nav a:hover{opacity:1;color:var(--brand)}
     
-    /* Maritime Robotics-inspired Hero Section */
+    /* Maritime Robotics-inspired Hero Section - Bottom Left on Desktop */
     .hero{
       position:relative;
       min-height:100vh;
       display:flex;
-      align-items:center;
+      align-items:flex-end;
       overflow:hidden;
       background:#000;
+      padding-bottom:80px;
     }
     
     /* Video background with increased visibility */
@@ -405,7 +406,7 @@
     @media (max-width: 960px){
       .grid-2{grid-template-columns:1fr}
       .cards{grid-template-columns:repeat(2,1fr)}
-      .hero{min-height:80vh;padding:0 20px}
+      .hero{min-height:80vh;padding:0 20px 60px}
       .hero-sub{gap:16px}
       .cta{padding:14px 24px;font-size:14px}
       
@@ -420,8 +421,29 @@
     
     @media (max-width: 600px){
       .cards{grid-template-columns:1fr}
-      .hero{min-height:100vh;padding:0 15px}
-      .hero-sub{flex-direction:column;align-items:stretch;gap:12px}
+      
+      /* Center hero content on mobile */
+      .hero{
+        min-height:100vh;
+        padding:0 15px 40px;
+        align-items:center;
+        justify-content:center;
+      }
+      
+      .hero-content{
+        text-align:center;
+      }
+      
+      .hero-tagline{
+        margin:16px auto 32px;
+      }
+      
+      .hero-sub{
+        flex-direction:column;
+        align-items:stretch;
+        gap:12px;
+      }
+      
       .cta, .btn-pill{justify-content:center}
       .kv{grid-template-columns:1fr}
       .job{grid-template-columns:1fr;gap:12px}
@@ -438,19 +460,9 @@
         transform:translateX(-50%) translateY(-50%) scale(1.1);
       }
       
-      /* Adjust hero content for mobile */
-      .hero-content{
-        text-align:center;
-      }
-      
       /* Better mobile spacing */
       .wordmark{
         margin-bottom:16px;
-      }
-      
-      .hero-tagline{
-        margin:16px auto 32px;
-        text-align:center;
       }
       
       /* Mobile navigation adjustments */
