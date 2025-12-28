@@ -114,7 +114,7 @@
       position:relative;
       min-height:100vh;
       display:flex;
-      align-items:stretch;
+      align-items:center;
       overflow:hidden;
       background:#000;
     }
@@ -163,43 +163,13 @@
         radial-gradient(circle at 80% 20%, rgba(14, 103, 255, 0.03) 0%, transparent 50%);
       z-index:3;
     }
-
-/* Keep hero content above overlays and pin it to bottom on desktop */
-.hero .wrap{
-  position:relative;
-  z-index:10;
-  height:100%;
-  display:flex;
-  align-items:flex-end;
-}
     
     .hero-content{
-  position:relative;
-  z-index:10;
-  color:white;
-  max-width:100%;
-
-  /* Desktop placement: bottom-left with breathing room */
-  text-align:left;
-  margin-left:10vw;   /* ~10% from left */
-  margin-bottom:10vh; /* ~10% from bottom */
-}
-
-/* Subtle gradient plate behind the hero text (improves readability without hiding video) */
-.hero-content::before{
-  content:'';
-  position:absolute;
-  inset:-26px -30px;
-  background:linear-gradient(
-    180deg,
-    rgba(0,0,0,0.00) 0%,
-    rgba(0,0,0,0.35) 40%,
-    rgba(0,0,0,0.70) 100%
-  );
-  border-radius:18px;
-  z-index:-1;
-  pointer-events:none;
-}
+      position:relative;
+      z-index:10;
+      color:white;
+      max-width:100%;
+    }
     
     /* Maritime-style badge */
     .badge{
@@ -469,20 +439,6 @@
       }
       
       /* Adjust hero content for mobile */
-/* Responsive logic: center hero content on mobile */
-.hero .wrap{
-  align-items:center;
-  justify-content:center;
-}
-
-.hero-content{
-  margin:0 auto;
-}
-
-.hero-content::before{
-  inset:-20px -20px;
-  border-radius:16px;
-}
       .hero-content{
         text-align:center;
       }
@@ -573,7 +529,7 @@
       <section id="about" class="section grid-2">
         <div>
            <h2>About</h2>
-          <p>With over 15 years of offshore survey experience, I support large-scale renewable energy and offshore construction projects worldwide, specializing in cable lay and burial, trenching, and subsea rock installation for offshore wind farms.</p>
+          <p>Experienced hydrographic surveyor specialized in renewable energy projects including cable installation and trenching for offshore wind farms and offshore construction.</p>
     
         </div>
         <div>
