@@ -109,12 +109,12 @@
     .nav a{font-weight:600;text-decoration:none;color:white;opacity:0.8;transition:all 0.3s ease}
     .nav a:hover{opacity:1;color:var(--brand)}
     
-    /* Maritime Robotics-inspired Hero Section - BOTTOM LEFT PLACEMENT */
+    /* Maritime Robotics-inspired Hero Section */
     .hero{
       position:relative;
       min-height:100vh;
       display:flex;
-      align-items:flex-end;
+      align-items:stretch;
       overflow:hidden;
       background:#000;
     }
@@ -130,10 +130,10 @@
       height:auto;
       z-index:1;
       transform:translateX(-50%) translateY(-50%);
-      filter:brightness(0.85) contrast(1.15) saturate(1.25);
+      filter:brightness(0.8) contrast(1.1) saturate(1.2);
     }
     
-    /* Bottom gradient for text readability */
+    /* Much lighter overlay to show more video */
     .hero::before{
       content:'';
       position:absolute;
@@ -142,16 +142,15 @@
       right:0;
       bottom:0;
       background:linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.1) 40%,
-        rgba(0, 0, 0, 0.6) 80%,
-        rgba(0, 0, 0, 0.85) 100%
+        135deg,
+        rgba(14, 103, 255, 0.2) 0%,
+        rgba(11, 18, 32, 0.3) 40%,
+        rgba(0, 0, 0, 0.4) 100%
       );
       z-index:2;
     }
     
-    /* Subtle side gradient for depth */
+    /* Subtle tech pattern overlay with reduced opacity */
     .hero::after{
       content:'';
       position:absolute;
@@ -159,21 +158,48 @@
       left:0;
       right:0;
       bottom:0;
-      background:linear-gradient(
-        to right,
-        rgba(14, 103, 255, 0.08) 0%,
-        transparent 50%
-      );
+      background:
+        radial-gradient(circle at 20% 80%, rgba(14, 103, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(14, 103, 255, 0.03) 0%, transparent 50%);
       z-index:3;
     }
+
+/* Keep hero content above overlays and pin it to bottom on desktop */
+.hero .wrap{
+  position:relative;
+  z-index:10;
+  height:100%;
+  display:flex;
+  align-items:flex-end;
+}
     
     .hero-content{
-      position:relative;
-      z-index:10;
-      color:white;
-      max-width:800px;
-      padding-bottom:80px;
-    }
+  position:relative;
+  z-index:10;
+  color:white;
+  max-width:100%;
+
+  /* Desktop placement: bottom-left with breathing room */
+  text-align:left;
+  margin-left:10vw;   /* ~10% from left */
+  margin-bottom:10vh; /* ~10% from bottom */
+}
+
+/* Subtle gradient plate behind the hero text (improves readability without hiding video) */
+.hero-content::before{
+  content:'';
+  position:absolute;
+  inset:-26px -30px;
+  background:linear-gradient(
+    180deg,
+    rgba(0,0,0,0.00) 0%,
+    rgba(0,0,0,0.35) 40%,
+    rgba(0,0,0,0.70) 100%
+  );
+  border-radius:18px;
+  z-index:-1;
+  pointer-events:none;
+}
     
     /* Maritime-style badge */
     .badge{
@@ -191,7 +217,7 @@
       text-transform:uppercase;
     }
     
-    /* Enhanced text shadows for bottom-left placement */
+    /* Enhanced text shadows for better readability on brighter video */
     .wordmark{
       font-size:clamp(48px, 7vw, 84px);
       line-height:0.95;
@@ -199,11 +225,7 @@
       letter-spacing:-2px;
       max-width:100%;
       color:white;
-      text-shadow:
-        0 2px 4px rgba(0,0,0,0.5),
-        0 4px 12px rgba(0,0,0,0.8),
-        0 8px 24px rgba(0,0,0,0.9),
-        0 16px 48px rgba(0,0,0,0.7);
+      text-shadow:0 2px 8px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.8), 0 8px 40px rgba(0,0,0,0.6);
       margin-bottom:24px;
     }
     
@@ -215,9 +237,6 @@
       color:rgba(255,255,255,0.8);
       margin-bottom:16px;
       text-transform:uppercase;
-      text-shadow:
-        0 2px 8px rgba(0,0,0,0.9),
-        0 4px 16px rgba(0,0,0,0.8);
     }
     
     /* Enhanced tagline with stronger shadows */
@@ -228,10 +247,7 @@
       margin:24px 0 40px;
       max-width:600px;
       font-weight:400;
-      text-shadow:
-        0 2px 8px rgba(0,0,0,0.9),
-        0 4px 20px rgba(0,0,0,0.8),
-        0 8px 32px rgba(0,0,0,0.6);
+      text-shadow:0 2px 8px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7);
     }
     
     .hero-sub{
@@ -325,14 +341,12 @@
       backdrop-filter:blur(10px);
       transition:all .3s ease;
       font-size:14px;
-      text-shadow:0 2px 8px rgba(0,0,0,0.8);
     }
     
     .btn-pill:hover{
       background:rgba(255,255,255,0.15);
       border-color:rgba(255,255,255,0.5);
       color:white;
-      transform:translateY(-1px);
     }
     
     /* Sections with refined styling */
@@ -406,7 +420,6 @@
       background:#fff;
       border:1.5px solid var(--line);
       backdrop-filter:none;
-      text-shadow:none;
     }
     .action-bar .btn-pill:hover{
       background:var(--text);
@@ -425,7 +438,6 @@
       .hero{min-height:80vh;padding:0 20px}
       .hero-sub{gap:16px}
       .cta{padding:14px 24px;font-size:14px}
-      .hero-content{padding-bottom:60px}
       
       /* Fix video scaling on tablets */
       .hero-video{
@@ -438,23 +450,12 @@
     
     @media (max-width: 600px){
       .cards{grid-template-columns:1fr}
-      .hero{
-        min-height:100vh;
-        padding:0 15px;
-        align-items:center;
-      }
+      .hero{min-height:100vh;padding:0 15px}
       .hero-sub{flex-direction:column;align-items:stretch;gap:12px}
       .cta, .btn-pill{justify-content:center}
       .kv{grid-template-columns:1fr}
       .job{grid-template-columns:1fr;gap:12px}
       .job .when{order:2;text-align:left}
-      
-      /* Center hero content on mobile */
-      .hero-content{
-        padding-bottom:0;
-        text-align:center;
-        max-width:100%;
-      }
       
       /* Mobile video optimization */
       .hero-video{
@@ -467,6 +468,25 @@
         transform:translateX(-50%) translateY(-50%) scale(1.1);
       }
       
+      /* Adjust hero content for mobile */
+/* Responsive logic: center hero content on mobile */
+.hero .wrap{
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-content{
+  margin:0 auto;
+}
+
+.hero-content::before{
+  inset:-20px -20px;
+  border-radius:16px;
+}
+      .hero-content{
+        text-align:center;
+      }
+      
       /* Better mobile spacing */
       .wordmark{
         margin-bottom:16px;
@@ -474,7 +494,7 @@
       
       .hero-tagline{
         margin:16px auto 32px;
-        max-width:100%;
+        text-align:center;
       }
       
       /* Mobile navigation adjustments */
@@ -514,7 +534,7 @@
   </header>
 
   <main id="home">
-    <!-- HERO SECTION - BOTTOM LEFT PLACEMENT -->
+    <!-- HERO SECTION -->
     <section class="hero">
       <video class="hero-video" autoplay muted loop playsinline preload="auto">
         <source src="01.mp4" type="video/mp4">
@@ -553,7 +573,8 @@
       <section id="about" class="section grid-2">
         <div>
            <h2>About</h2>
-          <p>Experienced hydrographic surveyor specialized in renewable energy projects including cable installation and trenching for offshore wind farms and offshore construction.</p>
+          <p>With over 15 years of offshore survey experience, I support large-scale renewable energy and offshore construction projects worldwide, specializing in cable lay and burial, trenching, and subsea rock installation for offshore wind farms.</p>
+    
         </div>
         <div>
           <div class="kv">
@@ -701,7 +722,8 @@
             <div>
               <div class="role">Kaskasi OWF (Germany) — Rock Installation Project</div>
               <div class="meta">Vessel: MPV Adhémar de Saint-Venant · Party Chief. Scope: Subsea rock installation with IFP.</div>
-            </="when">Sep 2022 – Oct 2022</div>
+            </div>
+            <div class="when">Sep 2022 – Oct 2022</div>
           </div>
           <div class="job">
             <div>
@@ -829,7 +851,7 @@
         console.log('Video failed to load');
         // Fallback: enhance the gradient background
         const hero = document.querySelector('.hero');
-        hero.style.background = 'linear-gradient(to bottom, rgba(14, 103, 255, 0.3) 0%, rgba(11, 18, 32, 1) 100%)';
+        hero.style.background = 'linear-gradient(135deg, rgba(14, 103, 255, 0.9) 0%, rgba(11, 18, 32, 1) 100%)';
       });
     }
 
