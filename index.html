@@ -67,7 +67,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
   
   <!-- Bootstrap Icons for social & file icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -209,15 +209,18 @@
       text-transform:uppercase;
     }
     
-    /* Enhanced tagline with stronger shadows */
+    /* Enhanced tagline with Bebas Neue font and stronger shadows */
     .hero-tagline{
-      font-size:clamp(18px, 2.5vw, 24px);
-      line-height:1.4;
+      font-family:'Bebas Neue', sans-serif;
+      font-size:clamp(32px, 5vw, 64px);
+      line-height:1.1;
       color:rgba(255,255,255,0.95);
       margin:24px 0 40px;
-      max-width:600px;
       font-weight:400;
+      letter-spacing:2px;
       text-shadow:0 2px 8px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7);
+      text-transform:uppercase;
+      white-space:nowrap;
     }
     
     .hero-sub{
@@ -427,6 +430,11 @@
       .job{grid-template-columns:1fr;gap:12px}
       .job .when{order:2;text-align:left}
       
+      /* Allow tagline to wrap on mobile */
+      .hero-tagline{
+        white-space:normal;
+      }
+      
       /* Mobile video optimization */
       .hero-video{
         width:100vw;
@@ -499,12 +507,8 @@
       </video>
       <div class="wrap">
         <div class="hero-content">
-          <h1 class="wordmark">
-            <span class="kicker">Maxim Tararushkin</span>
-            Hydrographic<br>Surveyor
-          </h1>
           <p class="hero-tagline">
-            Cable lay, trenching  & offshore construction support
+            Cable lay, trenching & offshore construction support
           </p>
           <div class="hero-sub">
             <a class="btn-pill" href="#contact">
