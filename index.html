@@ -477,16 +477,26 @@
       }
       
       /* Clean navbar on tablet */
-      .top{
-        border-bottom:none;
+      .wrap{
         background:transparent;
-        backdrop-filter:none;
+      }
+      
+      .top{
+        border-bottom:none !important;
+        background:transparent !important;
+        backdrop-filter:none !important;
+      }
+      
+      .nav{
+        background:transparent;
       }
       
       /* Show hamburger on tablet */
       .hamburger{
         display:flex;
         background:transparent;
+        border:none;
+        outline:none;
       }
       
       .hamburger span{
@@ -565,18 +575,20 @@
       /* Mobile navigation adjustments */
       .wrap{
         padding:0 20px 0 20px;
+        background:transparent;
       }
       
       .top{
-        border-bottom:none;
-        background:transparent;
-        backdrop-filter:none;
+        border-bottom:none !important;
+        background:transparent !important;
+        backdrop-filter:none !important;
       }
       
       .nav{
         height:60px;
         gap:0;
         padding-left:0;
+        background:transparent;
       }
       
       .name-top,
@@ -589,6 +601,8 @@
       .hamburger{
         display:flex;
         background:transparent;
+        border:none;
+        outline:none;
       }
       
       .hamburger span{
