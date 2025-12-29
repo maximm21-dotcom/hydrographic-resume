@@ -106,8 +106,16 @@
     }
     .wrap{max-width:var(--max);margin:auto;padding:0 20px}
     .nav{display:flex;gap:18px;align-items:center;justify-content:space-between;height:70px}
-    .nav a{font-weight:600;text-decoration:none;color:white;opacity:0.8;transition:all 0.3s ease}
-    .nav a:hover{opacity:1;color:var(--brand)}
+    
+    /* Logo styling */
+    .logo{display:flex;align-items:center;text-decoration:none;opacity:1 !important}
+    .logo img{height:40px;width:auto;transition:all 0.3s ease}
+    .logo:hover img{transform:scale(1.05)}
+    
+    /* Navigation links on the right */
+    .nav nav{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+    .nav nav a{font-weight:600;text-decoration:none;color:white;opacity:0.8;transition:all 0.3s ease}
+    .nav nav a:hover{opacity:1;color:var(--brand)}
     
     /* Maritime Robotics-inspired Hero Section */
     .hero{
@@ -458,6 +466,10 @@
         height:60px;
       }
       
+      .logo img{
+        height:32px;
+      }
+      
       .nav nav{
         gap:16px !important;
         font-size:14px;
@@ -478,7 +490,10 @@
 <body>
   <header class="top" id="navbar">
     <div class="wrap nav">
-      <nav style="display:flex;gap:24px;flex-wrap:wrap;width:100%;justify-content:center">
+      <a href="#home" class="logo">
+        <img src="Logo.png" alt="MT Logo" />
+      </a>
+      <nav>
         <a href="#about">About</a>
         <a href="#competencies">Competencies</a>
         <a href="#career">Career</a>
