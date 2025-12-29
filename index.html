@@ -133,6 +133,35 @@
       color:white;
     }
     
+    /* Hamburger menu button - hidden on desktop */
+    .hamburger{
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:8px;
+      z-index:101;
+    }
+    .hamburger span{
+      display:block;
+      width:28px;
+      height:3px;
+      background:white;
+      border-radius:3px;
+      transition:all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1){
+      transform:rotate(45deg) translate(8px, 8px);
+    }
+    .hamburger.active span:nth-child(2){
+      opacity:0;
+    }
+    .hamburger.active span:nth-child(3){
+      transform:rotate(-45deg) translate(7px, -7px);
+    }
+    
     /* Maritime Robotics-inspired Hero Section */
     .hero{
       position:relative;
@@ -438,9 +467,47 @@
       .hero-sub{gap:16px}
       .cta{padding:14px 24px;font-size:14px}
       
+      /* Show hamburger on tablet */
+      .hamburger{
+        display:flex;
+      }
+      
       /* Logo adjustment for tablet */
       .logo-first, .logo-last{
         font-size:14px;
+      }
+      
+      /* Adjust navigation for tablet */
+      .nav{
+        height:60px;
+      }
+      
+      /* Hide navigation by default on tablet */
+      .nav nav{
+        position:fixed;
+        top:0;
+        right:-100%;
+        width:320px;
+        height:100vh;
+        background:rgba(11, 18, 32, 0.98);
+        backdrop-filter:blur(20px);
+        flex-direction:column;
+        padding:80px 40px 40px;
+        gap:24px !important;
+        font-size:18px;
+        transition:right 0.3s ease;
+        z-index:100;
+        border-left:1px solid rgba(255,255,255,0.1);
+      }
+      
+      /* Show navigation when active */
+      .nav nav.active{
+        right:0;
+      }
+      
+      .nav nav a{
+        padding:12px 0;
+        border-bottom:1px solid rgba(255,255,255,0.1);
       }
       
       /* Fix video scaling on tablets */
@@ -460,6 +527,50 @@
       .kv{grid-template-columns:1fr}
       .job{grid-template-columns:1fr;gap:12px}
       .job .when{order:2;text-align:left}
+      
+      /* Show hamburger on mobile */
+      .hamburger{
+        display:flex;
+      }
+      
+      /* Mobile navigation adjustments */
+      .nav{
+        height:60px;
+        flex-direction:row;
+        padding:0;
+      }
+      
+      .logo{
+        margin-bottom:0;
+      }
+      
+      /* Hide navigation by default on mobile */
+      .nav nav{
+        position:fixed;
+        top:0;
+        right:-100%;
+        width:280px;
+        height:100vh;
+        background:rgba(11, 18, 32, 0.98);
+        backdrop-filter:blur(20px);
+        flex-direction:column;
+        padding:80px 30px 30px;
+        gap:24px !important;
+        font-size:16px;
+        transition:right 0.3s ease;
+        z-index:100;
+        border-left:1px solid rgba(255,255,255,0.1);
+      }
+      
+      /* Show navigation when active */
+      .nav nav.active{
+        right:0;
+      }
+      
+      .nav nav a{
+        padding:12px 0;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+      }
       
       /* Allow tagline to wrap on mobile */
       .hero-tagline{
@@ -491,24 +602,6 @@
         margin:16px auto 32px;
         text-align:center;
       }
-      
-      /* Mobile navigation adjustments */
-      .nav{
-        height:60px;
-        flex-direction:column;
-        height:auto;
-        padding:12px 0;
-      }
-      
-      .logo{
-        margin-bottom:8px;
-      }
-      
-      .nav nav{
-        gap:16px !important;
-        font-size:14px;
-        justify-content:center;
-      }
     }
     
     /* Accessibility */
@@ -529,7 +622,12 @@
         <span class="logo-first">MAXIM</span>
         <span class="logo-last">TARARUSHKIN</span>
       </a>
-      <nav style="display:flex;gap:24px;flex-wrap:wrap">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="nav-menu" style="display:flex;gap:24px;flex-wrap:wrap">
         <a href="#about">About</a>
         <a href="#competencies">Competencies</a>
         <a href="#career">Career</a>
@@ -832,6 +930,35 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking on a link
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const isClickInsideNav = navMenu.contains(event.target);
+      const isClickOnHamburger = hamburger.contains(event.target);
+      
+      if (!isClickInsideNav && !isClickOnHamburger && navMenu.classList.contains('active')) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      }
+    });
 
     // Maritime Robotics-style navbar behavior
     window.addEventListener('scroll', function() {
