@@ -107,10 +107,32 @@
     .wrap{max-width:var(--max);margin:auto;padding:0 20px}
     .nav{display:flex;gap:18px;align-items:center;justify-content:space-between;height:70px}
     
-    /* Logo styling */
-    .logo{display:flex;align-items:center;text-decoration:none;opacity:1 !important}
-    .logo img{height:40px;width:auto;transition:all 0.3s ease}
-    .logo:hover img{transform:scale(1.05)}
+    /* Text-based logo styling */
+    .logo-text{
+      display:flex;
+      flex-direction:column;
+      text-decoration:none;
+      opacity:1 !important;
+      line-height:1.1;
+    }
+    .name-top{
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:1.5px;
+      color:white;
+      transition:all 0.3s ease;
+    }
+    .name-bottom{
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:1.5px;
+      color:white;
+      transition:all 0.3s ease;
+    }
+    .logo-text:hover .name-top,
+    .logo-text:hover .name-bottom{
+      color:var(--brand);
+    }
     
     /* Navigation links on the right */
     .nav nav{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
@@ -466,8 +488,10 @@
         height:60px;
       }
       
-      .logo img{
-        height:32px;
+      .name-top,
+      .name-bottom{
+        font-size:14px;
+        letter-spacing:1px;
       }
       
       .nav nav{
@@ -490,8 +514,9 @@
 <body>
   <header class="top" id="navbar">
     <div class="wrap nav">
-      <a href="#home" class="logo">
-        <img src="Logo.png" alt="MT Logo" />
+      <a href="#home" class="logo-text">
+        <div class="name-top">MAXIM</div>
+        <div class="name-bottom">TARARUSHKIN</div>
       </a>
       <nav>
         <a href="#about">About</a>
