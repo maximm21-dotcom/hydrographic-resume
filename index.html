@@ -109,24 +109,14 @@
     .nav a{font-weight:600;text-decoration:none;color:white;opacity:0.8;transition:all 0.3s ease}
     .nav a:hover{opacity:1;color:var(--brand)}
     
-    /* Maritime Robotics-inspired Hero Section - Bottom Left on Desktop */
+    /* Maritime Robotics-inspired Hero Section */
     .hero{
       position:relative;
       min-height:100vh;
       display:flex;
-      align-items:flex-end;
-      justify-content:flex-start;
+      align-items:center;
       overflow:hidden;
       background:#000;
-      padding:0 0 100px 0;
-    }
-    
-    .hero .wrap{
-      width:100%;
-      max-width:var(--max);
-      margin:0;
-      margin-left:max(20px, calc((100vw - var(--max)) / 2));
-      padding:0 20px;
     }
     
     /* Video background with increased visibility */
@@ -178,7 +168,7 @@
       position:relative;
       z-index:10;
       color:white;
-      max-width:700px;
+      max-width:100%;
     }
     
     /* Maritime-style badge */
@@ -415,15 +405,7 @@
     @media (max-width: 960px){
       .grid-2{grid-template-columns:1fr}
       .cards{grid-template-columns:repeat(2,1fr)}
-      
-      .hero{
-        padding:0 0 80px 0;
-      }
-      
-      .hero .wrap{
-        margin-left:20px;
-      }
-      
+      .hero{min-height:80vh;padding:0 20px}
       .hero-sub{gap:16px}
       .cta{padding:14px 24px;font-size:14px}
       
@@ -438,34 +420,8 @@
     
     @media (max-width: 600px){
       .cards{grid-template-columns:1fr}
-      
-      /* Center hero content on mobile */
-      .hero{
-        align-items:center;
-        justify-content:center;
-        padding:0;
-      }
-      
-      .hero .wrap{
-        margin-left:auto;
-        margin-right:auto;
-        text-align:center;
-      }
-      
-      .hero-content{
-        max-width:100%;
-      }
-      
-      .hero-tagline{
-        margin:16px auto 32px;
-      }
-      
-      .hero-sub{
-        flex-direction:column;
-        align-items:stretch;
-        gap:12px;
-      }
-      
+      .hero{min-height:100vh;padding:0 15px}
+      .hero-sub{flex-direction:column;align-items:stretch;gap:12px}
       .cta, .btn-pill{justify-content:center}
       .kv{grid-template-columns:1fr}
       .job{grid-template-columns:1fr;gap:12px}
@@ -482,9 +438,19 @@
         transform:translateX(-50%) translateY(-50%) scale(1.1);
       }
       
+      /* Adjust hero content for mobile */
+      .hero-content{
+        text-align:center;
+      }
+      
       /* Better mobile spacing */
       .wordmark{
         margin-bottom:16px;
+      }
+      
+      .hero-tagline{
+        margin:16px auto 32px;
+        text-align:center;
       }
       
       /* Mobile navigation adjustments */
@@ -861,4 +827,3 @@
   </script>
 </body>
 </html>
-
