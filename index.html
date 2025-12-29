@@ -109,6 +109,30 @@
     .nav a{font-weight:600;text-decoration:none;color:white;opacity:0.8;transition:all 0.3s ease}
     .nav a:hover{opacity:1;color:var(--brand)}
     
+    /* Stacked text logo */
+    .logo{
+      display:flex;
+      flex-direction:column;
+      text-decoration:none;
+      line-height:1;
+      opacity:1 !important;
+    }
+    .logo:hover{
+      opacity:1 !important;
+    }
+    .logo-first{
+      font-size:16px;
+      font-weight:700;
+      letter-spacing:2px;
+      color:white;
+    }
+    .logo-last{
+      font-size:16px;
+      font-weight:700;
+      letter-spacing:2px;
+      color:white;
+    }
+    
     /* Maritime Robotics-inspired Hero Section */
     .hero{
       position:relative;
@@ -414,6 +438,11 @@
       .hero-sub{gap:16px}
       .cta{padding:14px 24px;font-size:14px}
       
+      /* Logo adjustment for tablet */
+      .logo-first, .logo-last{
+        font-size:14px;
+      }
+      
       /* Fix video scaling on tablets */
       .hero-video{
         width:100vw;
@@ -466,11 +495,19 @@
       /* Mobile navigation adjustments */
       .nav{
         height:60px;
+        flex-direction:column;
+        height:auto;
+        padding:12px 0;
+      }
+      
+      .logo{
+        margin-bottom:8px;
       }
       
       .nav nav{
         gap:16px !important;
         font-size:14px;
+        justify-content:center;
       }
     }
     
@@ -488,7 +525,11 @@
 <body>
   <header class="top" id="navbar">
     <div class="wrap nav">
-      <nav style="display:flex;gap:24px;flex-wrap:wrap;width:100%;justify-content:center">
+      <a href="#home" class="logo">
+        <span class="logo-first">MAXIM</span>
+        <span class="logo-last">TARARUSHKIN</span>
+      </a>
+      <nav style="display:flex;gap:24px;flex-wrap:wrap">
         <a href="#about">About</a>
         <a href="#competencies">Competencies</a>
         <a href="#career">Career</a>
