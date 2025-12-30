@@ -1239,13 +1239,340 @@
   <script>
     // Demo data: replace with your real projects + coordinates
     const PROJECTS = [
-      { title:"Coastal Virginia Offshore Wind (USA)", country:"USA", year:2025, vessel:"CLB Ulisse", scope:"Cable lay & burial / Trenching", lat:36.87, lng:-75.98 },
-      { title:"Tyrrhenian Link (Italy)", country:"Italy", year:2025, vessel:"CLV Leonardo Da Vinci", scope:"Cable lay support / QA-QC", lat:38.15, lng:15.65 },
-      { title:"Sofia Offshore Wind Farm (UK)", country:"UK", year:2024, vessel:"CLV Leonardo Da Vinci", scope:"Cable lay & burial / Plough HD3", lat:54.40, lng:1.40 },
-      { title:"Lightning (Abu Dhabi, UAE)", country:"UAE", year:2024, vessel:"CLV Leonardo Da Vinci", scope:"Cable lay / touchdown monitoring", lat:24.45, lng:54.38 },
-      { title:"Formosa 2 (Taiwan)", country:"Taiwan", year:2023, vessel:"CLV Willem De Vlamingh", scope:"Cable lay / IAC work", lat:24.98, lng:121.95 },
-      { title:"Fécamp OWF (France)", country:"France", year:2022, vessel:"MPV Adhémar de Saint-Venant", scope:"Subsea rock installation", lat:49.82, lng:0.08 }
-    ];
+      {
+            "title": "Coastal Virginia Offshore Wind",
+            "country": "USA",
+            "from": "2025-05",
+            "to": "Present",
+            "vessel": "CLB Ulisse",
+            "scope": "Cable lay & burial / Trenching",
+            "place": "Coastal Virginia Offshore Wind, Virginia Beach, Virginia, USA"
+      },
+      {
+            "title": "Tyrrhenian Link",
+            "country": "Italy",
+            "from": "2025-02",
+            "to": "2025-03",
+            "vessel": "CLV Leonardo Da Vinci",
+            "scope": "Cable lay support / QA-QC",
+            "place": "Tyrrhenian Link, Sicily, Italy"
+      },
+      {
+            "title": "Sofia Offshore Wind Farm",
+            "country": "UKCS",
+            "from": "2024-10",
+            "to": "2024-11",
+            "vessel": "CLV Leonardo Da Vinci",
+            "scope": "Cable lay & burial",
+            "place": "Sofia Offshore Wind Farm, North Sea, United Kingdom"
+      },
+      {
+            "title": "Lightning",
+            "country": "UAE",
+            "from": "2024-06",
+            "to": "2024-08",
+            "vessel": "CLV Leonardo Da Vinci",
+            "scope": "Cable lay support",
+            "place": "Abu Dhabi, United Arab Emirates"
+      },
+      {
+            "title": "Lightning",
+            "country": "UAE",
+            "from": "2023-11",
+            "to": "2024-04",
+            "vessel": "MPV Daniel Bernoulli",
+            "scope": "WROV/TROV / Pre-lay mattresses",
+            "place": "Abu Dhabi, United Arab Emirates"
+      },
+      {
+            "title": "Formosa 1",
+            "country": "Taiwan",
+            "from": "2023-08",
+            "to": "2023-09",
+            "vessel": "CLV Willem de Vlamingh",
+            "scope": "Cable lay",
+            "place": "Formosa 1 Offshore Wind Farm, Miaoli County, Taiwan"
+      },
+      {
+            "title": "Changhua OWF Phase I",
+            "country": "Taiwan",
+            "from": "2023-05",
+            "to": "2023-06",
+            "vessel": "CLV Willem de Vlamingh",
+            "scope": "Cable lay & burial",
+            "place": "Changhua Offshore Wind Farm, Changhua County, Taiwan"
+      },
+      {
+            "title": "Fécamp Offshore Wind Farm",
+            "country": "France",
+            "from": "2022-10",
+            "to": "2022-12",
+            "vessel": "MPV Adhémar de Saint-Venant",
+            "scope": "Subsea rock installation",
+            "place": "Fécamp, Normandy, France"
+      },
+      {
+            "title": "Kaskasi Offshore Wind Farm",
+            "country": "Germany",
+            "from": "2022-09",
+            "to": "2022-10",
+            "vessel": "MPV Adhémar de Saint-Venant",
+            "scope": "Subsea rock installation",
+            "place": "Kaskasi Offshore Wind Farm, North Sea, Germany"
+      },
+      {
+            "title": "Kaskasi Offshore Wind Farm",
+            "country": "Germany",
+            "from": "2022-04",
+            "to": "2022-06",
+            "vessel": "MPV Daniel Bernoulli",
+            "scope": "Subsea rock installation",
+            "place": "Kaskasi Offshore Wind Farm, North Sea, Germany"
+      },
+      {
+            "title": "Neart na Gaoithe",
+            "country": "UK",
+            "from": "2021-11",
+            "to": "2022-01",
+            "vessel": "Simon Stevin",
+            "scope": "Subsea rock installation",
+            "place": "Neart na Gaoithe Offshore Wind Farm, North Sea, Scotland"
+      },
+      {
+            "title": "Greater Tortue Ahmeyim",
+            "country": "Mauritania",
+            "from": "2021-08",
+            "to": "2021-09",
+            "vessel": "MPV Adhémar de Saint-Venant",
+            "scope": "Subsea rock installation",
+            "place": "Greater Tortue Ahmeyim, Mauritania"
+      },
+      {
+            "title": "Akkuyu Power Plant",
+            "country": "Turkey",
+            "from": "2021-05",
+            "to": "2021-06",
+            "vessel": "MPV Daniel Bernoulli",
+            "scope": "Rock installation / leveling",
+            "place": "Akkuyu Nuclear Power Plant, Mersin, Turkey"
+      },
+      {
+            "title": "Changhua OWF Phase I",
+            "country": "Taiwan",
+            "from": "2021-01",
+            "to": "2021-03",
+            "vessel": "THSD Francis Beaufort",
+            "scope": "Subsea leveling / dredging support",
+            "place": "Changhua Offshore Wind Farm, Changhua County, Taiwan"
+      },
+      {
+            "title": "Kirinskoye GCF",
+            "country": "Russia (Sakhalin)",
+            "from": "2020-06",
+            "to": "2020-09",
+            "vessel": "Joseph Plateau",
+            "scope": "Subsea rock installation",
+            "place": "Kirinskoye, Sakhalin Oblast, Russia"
+      },
+      {
+            "title": "Hainan II",
+            "country": "China",
+            "from": "2019-12",
+            "to": "2020-02",
+            "vessel": "Joseph Plateau",
+            "scope": "Subsea rock installation",
+            "place": "Hainan, China"
+      },
+      {
+            "title": "Jindo & Jeju Island",
+            "country": "South Korea",
+            "from": "2019-07",
+            "to": "2019-08",
+            "vessel": "Joseph Plateau",
+            "scope": "Subsea rock installation",
+            "place": "Jeju Island, South Korea"
+      },
+      {
+            "title": "Hainan II",
+            "country": "China",
+            "from": "2019-03",
+            "to": "2019-05",
+            "vessel": "Joseph Plateau",
+            "scope": "Subsea rock installation",
+            "place": "Hainan, China"
+      },
+      {
+            "title": "Trans Adriatic Pipeline (TAP)",
+            "country": "Italy",
+            "from": "2018-11",
+            "to": "2018-12",
+            "vessel": "MPV Adhémar de Saint-Venant",
+            "scope": "Pipeline support",
+            "place": "San Foca, Melendugno, Puglia, Italy"
+      },
+      {
+            "title": "NASR Field",
+            "country": "UAE",
+            "from": "2018-10",
+            "to": "2018-11",
+            "vessel": "MPV Daniel Bernoulli",
+            "scope": "Field works",
+            "place": "Nasr Field, Abu Dhabi, United Arab Emirates"
+      },
+      {
+            "title": "Malampaya Gas Export Pipeline",
+            "country": "Philippines",
+            "from": "2018-08",
+            "to": "2018-08",
+            "vessel": "Joseph Plateau",
+            "scope": "Pipeline works",
+            "place": "Malampaya, Palawan, Philippines"
+      },
+      {
+            "title": "Sabetta",
+            "country": "Russia",
+            "from": "2017-07",
+            "to": "2017-08",
+            "vessel": "",
+            "scope": "Port works",
+            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia"
+      },
+      {
+            "title": "AB4 Pipeline",
+            "country": "Bahrain",
+            "from": "2017-02",
+            "to": "2017-05",
+            "vessel": "",
+            "scope": "Pipeline works",
+            "place": "Bahrain"
+      },
+      {
+            "title": "Abu Qir Port",
+            "country": "Egypt",
+            "from": "2016-10",
+            "to": "2016-12",
+            "vessel": "",
+            "scope": "Port works",
+            "place": "Abu Qir, Alexandria, Egypt"
+      },
+      {
+            "title": "Sabetta",
+            "country": "Russia",
+            "from": "2016-07",
+            "to": "2017-10",
+            "vessel": "",
+            "scope": "Port works",
+            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia"
+      },
+      {
+            "title": "Lekki",
+            "country": "Nigeria",
+            "from": "2016-01",
+            "to": "2016-05",
+            "vessel": "",
+            "scope": "Port / coastal works",
+            "place": "Lekki, Lagos, Nigeria"
+      },
+      {
+            "title": "Klaipėda Port",
+            "country": "Lithuania",
+            "from": "2015-09",
+            "to": "2015-11",
+            "vessel": "",
+            "scope": "Port works",
+            "place": "Klaipėda, Lithuania"
+      },
+      {
+            "title": "Türkmenbaşy Port",
+            "country": "Turkmenistan",
+            "from": "2015-06",
+            "to": "2015-08",
+            "vessel": "",
+            "scope": "Port works",
+            "place": "Türkmenbaşy, Turkmenistan"
+      },
+      {
+            "title": "Kapuk Naga Jakarta",
+            "country": "Indonesia",
+            "from": "2015-04",
+            "to": "2015-05",
+            "vessel": "",
+            "scope": "Coastal works",
+            "place": "Jakarta, Indonesia"
+      },
+      {
+            "title": "North Sea (UKCS)",
+            "country": "UKCS",
+            "from": "2014-12",
+            "to": "2015-02",
+            "vessel": "Simon Stevin",
+            "scope": "Offshore works",
+            "place": "North Sea, United Kingdom"
+      },
+      {
+            "title": "Piltun (Sakhalin)",
+            "country": "Russia",
+            "from": "2014-09",
+            "to": "2014-10",
+            "vessel": "MPV La Boudeuse",
+            "scope": "Offshore works",
+            "place": "Piltun, Sakhalin Oblast, Russia"
+      },
+      {
+            "title": "Ayatsil",
+            "country": "Mexico",
+            "from": "2014-06",
+            "to": "2014-08",
+            "vessel": "CLV Willem de Vlamingh",
+            "scope": "Offshore works",
+            "place": "Ayatsil, Gulf of Mexico"
+      },
+      {
+            "title": "Java–Bali Submarine Cable",
+            "country": "Indonesia",
+            "from": "2014-02",
+            "to": "2014-04",
+            "vessel": "MPV La Boudeuse",
+            "scope": "Cable works",
+            "place": "Java, Indonesia"
+      },
+      {
+            "title": "Piltun (Sakhalin)",
+            "country": "Russia",
+            "from": "2013-07",
+            "to": "2013-09",
+            "vessel": "MPV La Boudeuse",
+            "scope": "Offshore works",
+            "place": "Piltun, Sakhalin Oblast, Russia"
+      },
+      {
+            "title": "Sabetta",
+            "country": "Russia",
+            "from": "2013-07",
+            "to": "2013-09",
+            "vessel": "",
+            "scope": "Port works",
+            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia"
+      },
+      {
+            "title": "Gorgon Project",
+            "country": "Australia",
+            "from": "2012-11",
+            "to": "2013-06",
+            "vessel": "Willem de Vlamingh",
+            "scope": "Offshore works",
+            "place": "Barrow Island, Western Australia, Australia"
+      },
+      {
+            "title": "Tatar Strait",
+            "country": "Russia",
+            "from": "2012-09",
+            "to": "2012-10",
+            "vessel": "MPV La Boudeuse",
+            "scope": "Offshore works",
+            "place": "Tatar Strait, Russia"
+      }
+];
 
     const modal = document.getElementById("projectsMapModal");
     const mapCountEl = document.getElementById("projectsMapCount");
@@ -1334,19 +1661,59 @@
       const cluster = L.markerClusterGroup();
       window.__projectsCluster = cluster;
 
-      PROJECTS.forEach((p, idx) => {
-        const popup = `
-          <div style="min-width:220px">
-            <strong>${esc(p.title)}</strong><br/>
-            <div>${esc(p.country)} · ${esc(String(p.year || ""))}</div>
-            <div><b>Vessel:</b> ${esc(p.vessel || "-")}</div>
-            <div><b>Scope:</b> ${esc(p.scope || "-")}</div>
-          </div>
-        `;
-        const marker = L.marker([p.lat, p.lng]).bindPopup(popup);
-        marker.__projectIndex = idx;
-        cluster.addLayer(marker);
-      });
+            // Cache coords in localStorage to avoid repeated geocoding calls
+      const COORDS_CACHE_KEY = "getsurvey_project_coords_v1";
+      const coordsCache = (() => {
+        try { return JSON.parse(localStorage.getItem(COORDS_CACHE_KEY) || "{}"); } catch(e) { return {}; }
+      })();
+
+      async function geocodePlace(place){
+        if (!place) return null;
+        if (coordsCache[place]) return coordsCache[place];
+
+        // Nominatim (OpenStreetMap) geocoding
+        const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + encodeURIComponent(place);
+        const res = await fetch(url, { headers: { "Accept": "application/json" } });
+        if (!res.ok) return null;
+        const data = await res.json();
+        if (!data || !data[0]) return null;
+
+        const coord = { lat: Number(data[0].lat), lng: Number(data[0].lon) };
+        coordsCache[place] = coord;
+        try { localStorage.setItem(COORDS_CACHE_KEY, JSON.stringify(coordsCache)); } catch(e) {}
+        return coord;
+      }
+
+      // Add markers (sequential geocoding to be gentle)
+      (async () => {
+        for (let idx = 0; idx < PROJECTS.length; idx++){
+          const p = PROJECTS[idx];
+          const popup = `
+            <div style="min-width:220px">
+              <strong>${esc(p.title)}</strong><br/>
+              <div>${esc(p.country)} · ${esc(String(p.from || ""))}${p.to ? " – " + esc(String(p.to)) : ""}</div>
+              <div><b>Vessel:</b> ${esc(p.vessel || "-")}</div>
+              <div><b>Scope:</b> ${esc(p.scope || "-")}</div>
+            </div>
+          `;
+
+          let lat = p.lat, lng = p.lng;
+          if (typeof lat !== "number" || typeof lng !== "number"){
+            const coord = await geocodePlace(p.place);
+            if (coord) { lat = coord.lat; lng = coord.lng; }
+          }
+
+          if (typeof lat === "number" && typeof lng === "number"){
+            const marker = L.marker([lat, lng]).bindPopup(popup);
+            marker.__projectIndex = idx;
+            cluster.addLayer(marker);
+          }
+
+          // Polite delay (only impacts missing coords)
+          await new Promise(r => setTimeout(r, 900));
+        }
+      })();
+    
 
       map.addLayer(cluster);
 
@@ -1372,7 +1739,7 @@
       listEl.innerHTML = filtered.map(p => `
         <div class="projects-item">
           <a href="#" data-zoom="${p.i}"><strong>${esc(p.title)}</strong></a>
-          <div class="projects-sub">${esc(p.country)} · ${esc(String(p.year||""))} · ${esc(p.vessel||"")}</div>
+          <div class="projects-sub">${esc(p.country)} · ${esc(String(p.from||""))}${p.to ? " – " + esc(String(p.to)) : ""} · ${esc(p.vessel||"")}</div>
         </div>
       `).join("");
 
