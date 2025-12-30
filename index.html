@@ -613,7 +613,206 @@
         transition: none !important;
       }
     }
-  </style>
+  /* ===================== PROJECTS WORLD MAP (Option A) ===================== */
+.kv div[data-open="map"]{ cursor:pointer; }
+.kv div[data-open="map"]:focus{ outline: 3px solid rgba(14,103,255,0.35); outline-offset: 3px; }
+
+.projects-map-modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+.projects-map-modal.is-open{ display:block; }
+.projects-map-backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.60);
+}
+
+/* Mobile-first fullscreen */
+.projects-map-panel{
+  position:absolute;
+  inset:0;
+  background:#fff;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  border-radius:0;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.35);
+}
+/* Desktop inset */
+@media (min-width: 860px){
+  .projects-map-panel{
+    inset: 5vh 5vw;
+    border-radius: 18px;
+  }
+}
+
+.projects-map-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  background:#fff;
+}
+.projects-map-title{
+  display:flex;
+  flex-direction:column;
+  gap: 2px;
+  min-width: 0;
+}
+.projects-map-title h3{ margin:0; font-size: 16px; }
+.projects-map-title small{ color: var(--muted); }
+
+.projects-map-actions{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  flex: 1;
+  justify-content: flex-end;
+}
+.projects-map-search{
+  width: min(380px, 48vw);
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.18);
+  outline: none;
+  font-family: inherit;
+}
+@media (max-width: 520px){
+  .projects-map-search{ width: 100%; }
+}
+
+.projects-map-close{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: #fff;
+  cursor:pointer;
+  flex: 0 0 auto;
+}
+
+.projects-map-content{
+  position:relative;
+  flex:1;
+  min-height:0;
+}
+.projects-map-split{
+  position:relative;
+  height:100%;
+  min-height:0;
+  display:block;
+}
+
+#projectsMap{
+  width:100%;
+  height:100%;
+  min-height:60vh;
+}
+
+/* Bottom-sheet list (mobile) */
+.projects-sheet{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  background:#fff;
+  border-top: 1px solid rgba(0,0,0,0.10);
+  box-shadow: 0 -12px 40px rgba(0,0,0,0.18);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  overflow:hidden;
+  height: 34vh;
+  max-height: 70vh;
+  min-height: 84px;
+  display:flex;
+  flex-direction:column;
+}
+.projects-sheet.collapsed{ height: 96px; }
+.projects-sheet.expanded{ height: 62vh; }
+
+.projects-sheet-handle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 0 8px;
+  cursor:pointer;
+  user-select:none;
+}
+.projects-sheet-handle::before{
+  content:"";
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.20);
+  display:block;
+}
+.projects-sheet-bar{
+  padding: 0 14px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.projects-sheet-bar strong{ font-size: 14px; }
+.projects-sheet-bar button{
+  border: 1px solid rgba(0,0,0,0.14);
+  background:#fff;
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor:pointer;
+  font-size: 13px;
+}
+
+.projects-list{
+  padding: 10px 14px;
+  overflow:auto;
+  font-size: 14px;
+  min-height:0;
+}
+.projects-item{
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(0,0,0,0.12);
+}
+.projects-item a{ color: var(--brand); text-decoration:none; }
+.projects-item a:hover{ text-decoration:underline; }
+.projects-sub{ color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+/* Desktop: side panel */
+@media (min-width: 860px){
+  .projects-map-split{
+    display:grid;
+    grid-template-columns: 1fr 360px;
+  }
+  .projects-sheet{
+    position:relative;
+    height:100%;
+    border-radius:0;
+    box-shadow:none;
+    border-top:0;
+    border-left: 1px solid rgba(0,0,0,0.08);
+  }
+  .projects-sheet-handle{ display:none; }
+  .projects-sheet.collapsed, .projects-sheet.expanded{ height:100%; }
+}
+
+/* Avoid Leaflet controls under the sheet */
+.leaflet-control-container .leaflet-bottom{ margin-bottom: 88px; }
+@media (min-width: 860px){
+  .leaflet-control-container .leaflet-bottom{ margin-bottom: 0; }
+}
+/* ======================================================================= */
+
+</style>
+  <!-- ===================== PROJECTS WORLD MAP (Leaflet) ===================== -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <!-- ======================================================================= -->
+
 </head>
 <body>
   <header class="top" id="navbar">
@@ -679,10 +878,10 @@
         </div>
         <div>
           <div class="kv">
-            <div><strong>15+</strong><br><span class="muted">Years Experience</span></div>
-            <div><strong>20+</strong><br><span class="muted">Countries</span></div>
-            <div><strong>10+</strong><br><span class="muted">Vessels</span></div>
-            <div><strong>40+</strong><br><span class="muted">Projects</span></div>
+            <div data-open="map" role="button" tabindex="0"><strong>15+</strong><br><span class="muted">Years Experience</span></div>
+            <div data-open="map" role="button" tabindex="0"><strong>20+</strong><br><span class="muted">Countries</span></div>
+            <div data-open="map" role="button" tabindex="0"><strong>10+</strong><br><span class="muted">Vessels</span></div>
+            <div data-open="map" role="button" tabindex="0"><strong>40+</strong><br><span class="muted">Projects</span></div>
           </div>
         </div>
       </section>
@@ -999,5 +1198,207 @@
       });
     });
   </script>
+  <!-- ===================== PROJECTS WORLD MAP (Option A) ===================== -->
+  <div id="projectsMapModal" class="projects-map-modal" aria-hidden="true">
+    <div class="projects-map-backdrop" data-close="projects-map"></div>
+
+    <div class="projects-map-panel" role="dialog" aria-modal="true" aria-label="Projects world map">
+      <div class="projects-map-header">
+        <div class="projects-map-title">
+          <h3>Projects Worldwide</h3>
+          <small id="projectsMapCount">0 projects</small>
+        </div>
+
+        <div class="projects-map-actions">
+          <input id="projectsMapSearch" class="projects-map-search" type="search" placeholder="Search project / vessel / country…" />
+          <button class="projects-map-close" type="button" data-close="projects-map" aria-label="Close map">✕</button>
+        </div>
+      </div>
+
+      <div class="projects-map-content">
+        <div class="projects-map-split">
+          <div id="projectsMap"></div>
+
+          <div id="projectsSheet" class="projects-sheet collapsed" aria-label="Projects list">
+            <div class="projects-sheet-handle" id="projectsSheetHandle" title="Expand/collapse"></div>
+            <div class="projects-sheet-bar">
+              <strong>Projects</strong>
+              <button type="button" id="projectsSheetToggle">Expand</button>
+            </div>
+            <div id="projectsMapList" class="projects-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ======================================================================= -->
+
+  <!-- ===================== PROJECTS WORLD MAP (Leaflet JS) ===================== -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script>
+    // Demo data: replace with your real projects + coordinates
+    const PROJECTS = [
+      { title:"Coastal Virginia Offshore Wind (USA)", country:"USA", year:2025, vessel:"CLB Ulisse", scope:"Cable lay & burial / Trenching", lat:36.87, lng:-75.98 },
+      { title:"Tyrrhenian Link (Italy)", country:"Italy", year:2025, vessel:"CLV Leonardo Da Vinci", scope:"Cable lay support / QA-QC", lat:38.15, lng:15.65 },
+      { title:"Sofia Offshore Wind Farm (UK)", country:"UK", year:2024, vessel:"CLV Leonardo Da Vinci", scope:"Cable lay & burial / Plough HD3", lat:54.40, lng:1.40 },
+      { title:"Lightning (Abu Dhabi, UAE)", country:"UAE", year:2024, vessel:"CLV Leonardo Da Vinci", scope:"Cable lay / touchdown monitoring", lat:24.45, lng:54.38 },
+      { title:"Formosa 2 (Taiwan)", country:"Taiwan", year:2023, vessel:"CLV Willem De Vlamingh", scope:"Cable lay / IAC work", lat:24.98, lng:121.95 },
+      { title:"Fécamp OWF (France)", country:"France", year:2022, vessel:"MPV Adhémar de Saint-Venant", scope:"Subsea rock installation", lat:49.82, lng:0.08 }
+    ];
+
+    const modal = document.getElementById("projectsMapModal");
+    const mapCountEl = document.getElementById("projectsMapCount");
+    const searchEl = document.getElementById("projectsMapSearch");
+    const listEl = document.getElementById("projectsMapList");
+
+    const sheet = document.getElementById("projectsSheet");
+    const sheetToggle = document.getElementById("projectsSheetToggle");
+    const sheetHandle = document.getElementById("projectsSheetHandle");
+
+    function setSheetState(state){
+      sheet.classList.remove("collapsed","expanded");
+      sheet.classList.add(state);
+      sheetToggle.textContent = state === "expanded" ? "Collapse" : "Expand";
+    }
+
+    function toggleSheet(){
+      if (window.matchMedia("(min-width: 860px)").matches) return;
+      const isExpanded = sheet.classList.contains("expanded");
+      setSheetState(isExpanded ? "collapsed" : "expanded");
+      setTimeout(() => window.__projectsMap && window.__projectsMap.invalidateSize(), 120);
+    }
+
+    sheetToggle.addEventListener("click", toggleSheet);
+    sheetHandle.addEventListener("click", toggleSheet);
+
+    // Open map on click (ALL stats)
+    document.querySelectorAll('.kv div[data-open="map"]').forEach(el => {
+      el.addEventListener("click", openProjectsMap);
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openProjectsMap();
+        }
+      });
+    });
+
+    // Close map (backdrop + close btn)
+    modal.querySelectorAll('[data-close="projects-map"]').forEach(el => {
+      el.addEventListener("click", closeProjectsMap);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) closeProjectsMap();
+    });
+
+    function openProjectsMap(){
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      initProjectsMapOnce();
+
+      // Mobile: start collapsed; Desktop: expanded side panel
+      if (window.matchMedia("(max-width: 859px)").matches) setSheetState("collapsed");
+      else setSheetState("expanded");
+
+      setTimeout(() => window.__projectsMap && window.__projectsMap.invalidateSize(), 150);
+      searchEl.value = "";
+      renderProjectsList("");
+      searchEl.focus({ preventScroll: true });
+    }
+
+    function closeProjectsMap(){
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    window.addEventListener("resize", () => {
+      if (!modal.classList.contains("is-open")) return;
+      if (window.matchMedia("(min-width: 860px)").matches) setSheetState("expanded");
+      else if (!sheet.classList.contains("expanded")) setSheetState("collapsed");
+      setTimeout(() => window.__projectsMap && window.__projectsMap.invalidateSize(), 120);
+    });
+
+    function initProjectsMapOnce(){
+      if (window.__projectsMap) return;
+
+      const map = L.map("projectsMap", { worldCopyJump: true }).setView([20, 0], 2);
+      window.__projectsMap = map;
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap"
+      }).addTo(map);
+
+      const cluster = L.markerClusterGroup();
+      window.__projectsCluster = cluster;
+
+      PROJECTS.forEach((p, idx) => {
+        const popup = `
+          <div style="min-width:220px">
+            <strong>${esc(p.title)}</strong><br/>
+            <div>${esc(p.country)} · ${esc(String(p.year || ""))}</div>
+            <div><b>Vessel:</b> ${esc(p.vessel || "-")}</div>
+            <div><b>Scope:</b> ${esc(p.scope || "-")}</div>
+          </div>
+        `;
+        const marker = L.marker([p.lat, p.lng]).bindPopup(popup);
+        marker.__projectIndex = idx;
+        cluster.addLayer(marker);
+      });
+
+      map.addLayer(cluster);
+
+      searchEl.addEventListener("input", () => renderProjectsList(searchEl.value));
+      renderProjectsList("");
+    }
+
+    function renderProjectsList(q=""){
+      const query = q.trim().toLowerCase();
+      const filtered = PROJECTS.map((p,i)=>({...p, i})).filter(p => {
+        if (!query) return true;
+        return (
+          (p.title||"").toLowerCase().includes(query) ||
+          (p.country||"").toLowerCase().includes(query) ||
+          (p.vessel||"").toLowerCase().includes(query) ||
+          (p.scope||"").toLowerCase().includes(query) ||
+          String(p.year||"").includes(query)
+        );
+      });
+
+      mapCountEl.textContent = `${filtered.length} project${filtered.length===1?"":"s"}`;
+
+      listEl.innerHTML = filtered.map(p => `
+        <div class="projects-item">
+          <a href="#" data-zoom="${p.i}"><strong>${esc(p.title)}</strong></a>
+          <div class="projects-sub">${esc(p.country)} · ${esc(String(p.year||""))} · ${esc(p.vessel||"")}</div>
+        </div>
+      `).join("");
+
+      listEl.querySelectorAll("[data-zoom]").forEach(a => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const index = Number(a.getAttribute("data-zoom"));
+          const proj = PROJECTS[index];
+          window.__projectsMap.flyTo([proj.lat, proj.lng], 6, { duration: 0.8 });
+
+          window.__projectsCluster.eachLayer(layer => {
+            if (layer.__projectIndex === index) layer.openPopup();
+          });
+
+          if (window.matchMedia("(max-width: 859px)").matches) setSheetState("collapsed");
+        });
+      });
+    }
+
+    function esc(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[s]));
+    }
+  </script>
+  <!-- ======================================================================= -->
+
 </body>
 </html>
