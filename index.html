@@ -809,6 +809,22 @@
 @media (min-width: 860px){
   .leaflet-control-container .leaflet-bottom{ margin-bottom: 0; }
 }
+/* === Mobile list scroll fix === */
+.projects-sheet{ touch-action: pan-y; }
+.projects-list{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+/* Give collapsed state more room so items are visible */
+.projects-sheet.collapsed{ height: 140px; }
+/* iPhone safe area */
+@supports (padding: max(0px)){
+  .projects-sheet{ padding-bottom: max(0px, env(safe-area-inset-bottom)); }
+}
+
 /* ======================================================================= */
 
 </style>
@@ -1584,7 +1600,18 @@
     const searchEl = document.getElementById("projectsMapSearch");
     const listEl = document.getElementById("projectsMapList");
 
-    const sheet = document.getElementById("projectsSheet");
+    
+    // --- Make the bottom list scroll properly on mobile (prevent Leaflet stealing touch) ---
+    function lockListScrolling(){
+      if (!listEl) return;
+      const stop = (e) => { e.stopPropagation(); };
+      listEl.addEventListener("touchstart", stop, { passive: true });
+      listEl.addEventListener("touchmove", stop, { passive: true });
+      listEl.addEventListener("wheel", stop, { passive: true });
+    }
+
+    lockListScrolling();
+const sheet = document.getElementById("projectsSheet");
     const sheetToggle = document.getElementById("projectsSheetToggle");
     const sheetHandle = document.getElementById("projectsSheetHandle");
 
@@ -1630,7 +1657,7 @@
       initProjectsMapOnce();
 
       // Mobile: start collapsed; Desktop: expanded side panel
-      if (window.matchMedia("(max-width: 859px)").matches) setSheetState("collapsed");
+      if (window.matchMedia("(max-width: 859px)").matches) setSheetState("expanded");
       else setSheetState("expanded");
 
       setTimeout(() => window.__projectsMap && window.__projectsMap.invalidateSize(), 150);
