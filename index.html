@@ -615,6 +615,38 @@
     }
   /* ===================== PROJECTS WORLD MAP (Option A) ===================== */
 .kv div[data-open="map"]{ cursor:pointer; }
+.btn-map{ border-color: rgba(0,229,255,0.55); color:#fff; background: rgba(0,229,255,0.12); }
+.btn-map:hover{ background: rgba(0,229,255,0.22); border-color:#00e5ff; }
+.map-hint{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; font-size:14px; font-weight:600; color:var(--brand); text-decoration:none; }
+.map-hint:hover{ text-decoration:underline; }
+.globe-teaser{
+  display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1.3fr); align-items:center; gap:8px;
+  margin:28px 0 8px; border-radius:18px; overflow:hidden; text-decoration:none; color:#e6eef6;
+  background: radial-gradient(ellipse at 70% 50%, #0b1a2e 0%, #03070e 72%);
+  border:1px solid rgba(0,229,255,0.18); box-shadow: 0 18px 50px rgba(3,7,14,0.25);
+  transition: border-color .25s ease, transform .25s ease;
+}
+.globe-teaser:hover{ border-color: rgba(0,229,255,0.55); transform: translateY(-2px); }
+.globe-teaser:focus-visible{ outline:3px solid #00e5ff; outline-offset:3px; }
+.globe-teaser-text{ display:flex; flex-direction:column; gap:10px; padding:32px; }
+.globe-teaser-kicker{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#00e5ff; font-weight:600; }
+.globe-teaser-title{ font-size:28px; line-height:1.15; font-weight:800; color:#fff; }
+.globe-teaser-stats{ font-size:15px; color:#8aa0b4; }
+.globe-teaser-cta{ align-self:flex-start; margin-top:8px; display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:8px;
+  background:#00e5ff; color:#03111c; font-weight:700; font-size:14px; }
+.globe-teaser-map{ position:relative; height:340px; }
+.globe-teaser-icon{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:150px; color:rgba(0,229,255,0.22); }
+.globe-teaser-map.has-globe .globe-teaser-icon{ display:none; }
+.globe-teaser-map .maplibregl-ctrl-attrib{ background: rgba(3,7,14,0.6); }
+.globe-teaser-map .maplibregl-ctrl-attrib a, .globe-teaser-map .maplibregl-ctrl-attrib-button{ color:#8aa0b4; }
+.globe-teaser-map canvas{ cursor:pointer; }
+@media (max-width: 720px){
+  .globe-teaser{ grid-template-columns: 1fr; }
+  .globe-teaser-text{ padding:24px 22px 0; }
+  .globe-teaser-title{ font-size:24px; }
+  .globe-teaser-map{ height:280px; }
+}
+@media (prefers-reduced-motion: reduce){ .globe-teaser{ transition:none; } .globe-teaser:hover{ transform:none; } }
 .kv div[data-open="map"]:focus{ outline: 3px solid rgba(14,103,255,0.35); outline-offset: 3px; }
 
 .projects-map-modal{
@@ -890,6 +922,7 @@
         <a href="#competencies">Competencies</a>
         <a href="#career">Career</a>
         <a href="#projects">Projects</a>
+        <a href="#map" data-open="map">Map</a>
         <a href="#contact">Contact</a>
         <a href="https://www.linkedin.com/in/maximtararushkin" target="_blank" rel="noreferrer">LinkedIn</a>
       </nav>
@@ -918,6 +951,10 @@
               <i class="bi bi-briefcase-fill"></i>
               View Projects
             </a>
+            <a class="btn-pill btn-map" href="#map" data-open="map">
+              <i class="bi bi-globe-americas"></i>
+              Project Map
+            </a>
             <a class="btn-pill" href="CV_MaximTararushkin.pdf" target="_blank" rel="noopener">
               <i class="bi bi-file-earmark-pdf-fill"></i>
               Download CV
@@ -942,6 +979,7 @@
             <div data-open="map" role="button" tabindex="0"><strong>10+</strong><br><span class="muted">Vessels</span></div>
             <div data-open="map" role="button" tabindex="0"><strong>40+</strong><br><span class="muted">Projects</span></div>
           </div>
+          <a class="map-hint" href="#map" data-open="map"><i class="bi bi-globe2"></i> See where these projects were on the interactive map</a>
         </div>
       </section>
 
@@ -1010,6 +1048,15 @@
       <section id="projects" class="section">
         <h2>Projects</h2>
         <p class="muted">Selected offshore and coastal survey assignments. Full list available on request.</p>
+        <a class="globe-teaser" href="#map" data-open="map" aria-label="Open the interactive projects globe">
+          <div class="globe-teaser-text">
+            <span class="globe-teaser-kicker">Interactive map</span>
+            <strong class="globe-teaser-title">Projects worldwide</strong>
+            <span class="globe-teaser-stats" id="globeTeaserStats"></span>
+            <span class="globe-teaser-cta"><i class="bi bi-globe-americas"></i> Explore the globe</span>
+          </div>
+          <div class="globe-teaser-map" id="globeTeaserMap" aria-hidden="true"><i class="bi bi-globe-americas globe-teaser-icon"></i></div>
+        </a>
         <div class="career-list">
           <!-- 2025 -->
           <div class="job">
@@ -1740,9 +1787,12 @@
     sheetToggle.addEventListener("click", toggleSheet);
     sheetHandle.addEventListener("click", toggleSheet);
 
-    // Open map on click (ALL stats)
-    document.querySelectorAll('.kv div[data-open="map"]').forEach(el => {
-      el.addEventListener("click", openProjectsMap);
+    // Open map from stats, hero button, nav link, hint and projects teaser
+    document.querySelectorAll('[data-open="map"]').forEach(el => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        openProjectsMap();
+      });
       el.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -1781,7 +1831,13 @@
       modal.classList.remove("is-open");
       modal.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      if (location.hash === "#map") history.replaceState(null, "", location.pathname + location.search);
     }
+
+    // A link to getsurvey.xyz/#map opens the map straight away
+    function openMapFromHash(){ if (location.hash === "#map" && !modal.classList.contains("is-open")) openProjectsMap(); }
+    window.addEventListener("hashchange", openMapFromHash);
+    window.addEventListener("load", openMapFromHash);
 
     window.addEventListener("resize", () => {
       if (!modal.classList.contains("is-open")) return;
@@ -1834,14 +1890,17 @@
         `<div class="gp-c">${dm(g.lat, "N", "S")} ${dm(g.lng, "E", "W")}</div>${rows}</div>`;
     }
 
+    const loadedScripts = {};
     function loadScript(src){
-      return new Promise((resolve, reject) => {
+      if (loadedScripts[src]) return loadedScripts[src];
+      return loadedScripts[src] = new Promise((resolve, reject) => {
         const s = document.createElement("script");
         s.src = src; s.onload = resolve; s.onerror = () => reject(new Error("Failed to load " + src));
         document.head.appendChild(s);
       });
     }
     function loadCss(href){
+      if (document.querySelector('link[href="' + href + '"]')) return;
       const l = document.createElement("link"); l.rel = "stylesheet"; l.href = href; document.head.appendChild(l);
     }
     function hasWebGL(){
@@ -1983,6 +2042,53 @@
       };
       window.__mapHome = () => map.setView([25, 30], 2);
     }
+
+
+    /* ===== Projects section teaser: small spinning globe that opens the full map ===== */
+    (function initGlobeTeaser(){
+      const box = document.getElementById("globeTeaserMap");
+      const stats = document.getElementById("globeTeaserStats");
+      if (!box) return;
+      const countries = new Set(PROJECTS.map(p => String(p.country).replace(/\s*\(.*\)/, "").replace("UKCS", "UK")));
+      const firstYear = Math.min(...PROJECTS.map(p => parseInt(String(p.from).slice(0, 4), 10)).filter(Boolean));
+      if (stats) stats.textContent = `${PROJECTS.length} projects · ${countries.size} countries · since ${firstYear}`;
+      if (!hasWebGL() || !("IntersectionObserver" in window)) return;
+
+      let map = null, visible = false, last = 0;
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      function frame(t){
+        if (!map || !visible) { last = 0; return; }
+        if (last && !still) { const c = map.getCenter(); c.lng -= (t - last) * 0.004; map.jumpTo({ center: c }); }
+        last = t; requestAnimationFrame(frame);
+      }
+      async function start(){
+        loadCss(GLOBE_LIB_CSS);
+        await loadScript(GLOBE_LIB_JS);
+        const phone = window.matchMedia("(max-width: 720px)").matches;
+        map = new maplibregl.Map({ container: box, style: GLOBE_STYLE, center: [60, 25], zoom: phone ? 0.75 : 0.95,
+          interactive: false, attributionControl: { compact: true } });
+        map.on("style.load", () => {
+          map.setProjection({ type: "globe" });
+          try { map.setSky({ "sky-color": "#0b1a2e", "horizon-color": "#1d4e7a", "atmosphere-blend": 1 }); } catch(e) {}
+          map.getStyle().layers.forEach(l => { if (l.type === "symbol") map.setLayoutProperty(l.id, "visibility", "none"); });
+          if (map.getLayer("background")) map.setPaintProperty("background", "background-color", "#1b2735");
+          if (map.getLayer("water")) map.setPaintProperty("water", "fill-color", "#071a2c");
+          map.addSource("teaser", { type: "geojson", data: { type: "FeatureCollection",
+            features: MAP_GROUPS.map(g => ({ type: "Feature", geometry: { type: "Point", coordinates: [g.lng, g.lat] }, properties: { n: g.items.length } })) } });
+          map.addLayer({ id: "teaser-glow", type: "circle", source: "teaser", paint: {
+            "circle-radius": ["+", 9, ["*", 3, ["get", "n"]]], "circle-color": ACCENT, "circle-opacity": 0.35, "circle-blur": 1 } });
+          map.addLayer({ id: "teaser-dot", type: "circle", source: "teaser", paint: {
+            "circle-radius": ["+", 2.5, ["get", "n"]], "circle-color": ACCENT, "circle-stroke-width": 1, "circle-stroke-color": "#ffffff" } });
+        });
+        map.once("load", () => { box.classList.add("has-globe"); if (visible) requestAnimationFrame(frame); });
+      }
+      const io = new IntersectionObserver(entries => {
+        visible = entries.some(e => e.isIntersecting);
+        if (visible && !map) start().catch(err => console.error(err));
+        else if (visible && map) requestAnimationFrame(frame);
+      }, { rootMargin: "200px" });
+      io.observe(box);
+    })();
 
     function renderProjectsList(q=""){
       const query = q.trim().toLowerCase();
