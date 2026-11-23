@@ -1809,8 +1809,22 @@
       if (e.key === "Escape" && modal.classList.contains("is-open")) closeProjectsMap();
     });
 
+    const heroVideo = document.querySelector(".hero-video");
+    let heroOnScreen = true;
+    function syncHeroVideo(){
+      if (!heroVideo) return;
+      const play = heroOnScreen && !document.hidden && !modal.classList.contains("is-open");
+      if (play && heroVideo.paused) heroVideo.play().catch(() => {});
+      else if (!play && !heroVideo.paused) heroVideo.pause();
+    }
+    if (heroVideo && "IntersectionObserver" in window) {
+      new IntersectionObserver(es => { heroOnScreen = es.some(e => e.isIntersecting); syncHeroVideo(); }).observe(heroVideo);
+      document.addEventListener("visibilitychange", syncHeroVideo);
+    }
+
     function openProjectsMap(){
       modal.classList.add("is-open");
+      syncHeroVideo();
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
       initProjectsMapOnce();
@@ -1831,6 +1845,8 @@
       modal.classList.remove("is-open");
       modal.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      syncHeroVideo();
+      if (window.__teaserResume) window.__teaserResume();
       if (location.hash === "#map") history.replaceState(null, "", location.pathname + location.search);
     }
 
@@ -1853,6 +1869,11 @@
     const FLAT_LIB_JS   = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
     const FLAT_LIB_CSS  = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
     const ACCENT = "#00e5ff";
+    const IS_PHONE = window.matchMedia("(max-width: 859px), (pointer: coarse)").matches;
+    // Phones report devicePixelRatio 3: a full-screen canvas at 3x is ~9x the pixels of 1x.
+    // 2x on phones (1.5x for the small preview) looks the same and draws far fewer pixels.
+    const MAP_DPR = Math.min(window.devicePixelRatio || 1, 2);
+    const TEASER_DPR = Math.min(window.devicePixelRatio || 1, IS_PHONE ? 1.5 : 2);
 
     // Projects that share one location are grouped so stacked points open one popup
     const MAP_GROUPS = [];
@@ -1936,6 +1957,9 @@
         center: home.center,
         zoom: home.zoom,
         minZoom: 0.6,
+        pixelRatio: MAP_DPR,
+        fadeDuration: 0,
+        maxTileCacheSize: 120,
         attributionControl: { compact: true }
       });
       window.__projectsMap = map;
@@ -1959,6 +1983,11 @@
         // Navy ocean and slate land, matching the site's dark map theme
         if (map.getLayer("background")) map.setPaintProperty("background", "background-color", "#1b2735");
         if (map.getLayer("water")) map.setPaintProperty("water", "fill-color", "#071a2c");
+        // Place names are unreadable on the whole-globe view and costly to lay out while it turns:
+        // show them only once the visitor zooms in to a region
+        map.getStyle().layers.forEach(l => {
+          if (l.type === "symbol") map.setLayerZoomRange(l.id, Math.max(l.minzoom || 0, 3), l.maxzoom || 24);
+        });
 
         map.addSource("projects", { type: "geojson", data: toFeatures(null) });
         map.addLayer({ id: "projects-glow", type: "circle", source: "projects", paint: {
@@ -1972,7 +2001,7 @@
       });
 
       // Slow spin until the visitor touches the globe
-      let spinning = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let spinning = !IS_PHONE && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const stopSpin = () => { spinning = false; };
       const spinStep = () => {
         if (!spinning || map.getZoom() > 3 || !modal.classList.contains("is-open")) return;
@@ -2054,19 +2083,25 @@
       if (stats) stats.textContent = `${PROJECTS.length} projects · ${countries.size} countries · since ${firstYear}`;
       if (!hasWebGL() || !("IntersectionObserver" in window)) return;
 
-      let map = null, visible = false, last = 0;
+      let map = null, visible = false, last = 0, running = false;
       const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const STEP = 1000 / 30;
+      const canRun = () => map && visible && !still && !document.hidden && !modal.classList.contains("is-open");
       function frame(t){
-        if (!map || !visible) { last = 0; return; }
-        if (last && !still) { const c = map.getCenter(); c.lng -= (t - last) * 0.004; map.jumpTo({ center: c }); }
-        last = t; requestAnimationFrame(frame);
+        if (!canRun()) { running = false; last = 0; return; }
+        if (!last) last = t;
+        if (t - last >= STEP) { const c = map.getCenter(); c.lng -= (t - last) * 0.004; map.jumpTo({ center: c }); last = t; }
+        requestAnimationFrame(frame);
       }
+      function resume(){ if (!running && canRun()) { running = true; requestAnimationFrame(frame); } }
+      window.__teaserResume = resume;
+      document.addEventListener("visibilitychange", resume);
       async function start(){
         loadCss(GLOBE_LIB_CSS);
         await loadScript(GLOBE_LIB_JS);
         const phone = window.matchMedia("(max-width: 720px)").matches;
         map = new maplibregl.Map({ container: box, style: GLOBE_STYLE, center: [60, 25], zoom: phone ? 0.75 : 0.95,
-          interactive: false, attributionControl: { compact: true } });
+          interactive: false, pixelRatio: TEASER_DPR, fadeDuration: 0, maxTileCacheSize: 40, attributionControl: { compact: true } });
         map.on("style.load", () => {
           map.setProjection({ type: "globe" });
           try { map.setSky({ "sky-color": "#0b1a2e", "horizon-color": "#1d4e7a", "atmosphere-blend": 1 }); } catch(e) {}
@@ -2080,12 +2115,12 @@
           map.addLayer({ id: "teaser-dot", type: "circle", source: "teaser", paint: {
             "circle-radius": ["+", 2.5, ["get", "n"]], "circle-color": ACCENT, "circle-stroke-width": 1, "circle-stroke-color": "#ffffff" } });
         });
-        map.once("load", () => { box.classList.add("has-globe"); if (visible) requestAnimationFrame(frame); });
+        map.once("load", () => { box.classList.add("has-globe"); resume(); });
       }
       const io = new IntersectionObserver(entries => {
         visible = entries.some(e => e.isIntersecting);
         if (visible && !map) start().catch(err => console.error(err));
-        else if (visible && map) requestAnimationFrame(frame);
+        else resume();
       }, { rootMargin: "200px" });
       io.observe(box);
     })();
