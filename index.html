@@ -809,13 +809,67 @@
 @media (min-width: 860px){
   .leaflet-control-container .leaflet-bottom{ margin-bottom: 0; }
 }
+/* ===== Dark theme for the 3D globe map ===== */
+.projects-map-panel{ background:#03070e; color:#e6eef6; }
+.projects-map-header{ background:#08121e; border-bottom-color: rgba(120,170,210,0.18); }
+.projects-map-title h3{ color:#e6eef6; }
+.projects-map-title small{ color:#8aa0b4; }
+.projects-map-search{ background:#0c1a2a; color:#e6eef6; border-color: rgba(120,170,210,0.28); }
+.projects-map-search::placeholder{ color:#6f8499; }
+.projects-map-search:focus{ border-color:#00e5ff; }
+.projects-map-close{ background:#0c1a2a; color:#e6eef6; border-color: rgba(120,170,210,0.28); }
+#projectsMap{ background: radial-gradient(ellipse at 50% 50%, #0b1a2e 0%, #03070e 70%); }
+.projects-sheet{ background:#08121e; border-color: rgba(120,170,210,0.18); box-shadow: 0 -12px 40px rgba(0,0,0,0.5); }
+.projects-sheet-handle::before{ background: rgba(200,220,240,0.35); }
+.projects-sheet-bar{ border-bottom-color: rgba(120,170,210,0.18); }
+.projects-sheet-bar strong{ color:#e6eef6; }
+.projects-sheet-bar button{ background:#0c1a2a; color:#e6eef6; border-color: rgba(120,170,210,0.28); }
+.projects-item{ border-bottom-color: rgba(120,170,210,0.16); }
+.projects-item a{ color:#7cefff; }
+.projects-sub{ color:#8aa0b4; }
+@media (min-width: 860px){
+  .projects-sheet{ border-left-color: rgba(120,170,210,0.18); max-height:none; }
+  .projects-sheet-bar button{ display:none; }
+}
+
+/* Map controls stay clear of the mobile bottom sheet */
+#projectsMap .maplibregl-ctrl-bottom-right,
+#projectsMap .maplibregl-ctrl-bottom-left,
+#projectsMap .leaflet-bottom{ margin-bottom: 96px; }
+@media (min-width: 860px){
+  #projectsMap .maplibregl-ctrl-bottom-right,
+  #projectsMap .maplibregl-ctrl-bottom-left,
+  #projectsMap .leaflet-bottom{ margin-bottom: 0; }
+}
+
+/* Project popup */
+.globe-popup .maplibregl-popup-content,
+.globe-popup .leaflet-popup-content-wrapper{
+  background:#0c1a2a; color:#e6eef6; border:1px solid rgba(120,170,210,0.25);
+  border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.5); padding:12px 14px;
+}
+.globe-popup .leaflet-popup-content{ margin:0; }
+.globe-popup .leaflet-popup-tip{ background:#0c1a2a; }
+.globe-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip,
+.globe-popup.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip,
+.globe-popup.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip{ border-top-color:#0c1a2a; }
+.globe-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip,
+.globe-popup.maplibregl-popup-anchor-top-left .maplibregl-popup-tip,
+.globe-popup.maplibregl-popup-anchor-top-right .maplibregl-popup-tip{ border-bottom-color:#0c1a2a; }
+.globe-popup.maplibregl-popup-anchor-left .maplibregl-popup-tip{ border-right-color:#0c1a2a; }
+.globe-popup.maplibregl-popup-anchor-right .maplibregl-popup-tip{ border-left-color:#0c1a2a; }
+.globe-popup .maplibregl-popup-close-button{ color:#8aa0b4; font-size:18px; right:4px; top:2px; }
+.gp{ font-family: Inter, system-ui, sans-serif; min-width: 200px; }
+.gp h4{ margin:0 0 2px; font-size:15px; font-weight:600; color:#e6eef6; }
+.gp-c{ font-family: ui-monospace, Menlo, Consolas, monospace; font-size:11px; color:#00e5ff; margin-bottom:6px; }
+.gp-row{ font-size:12.5px; line-height:1.45; padding:6px 0; border-top:1px solid rgba(120,170,210,0.16); color:#e6eef6; }
+.gp-row:first-of-type{ border-top:0; }
+.gp-row span{ color:#8aa0b4; }
+.map-fallback-msg{ height:100%; display:flex; align-items:center; justify-content:center; text-align:center; padding:24px; color:#8aa0b4; }
 /* ======================================================================= */
 
 </style>
-  <!-- ===================== PROJECTS WORLD MAP (Leaflet) ===================== -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <!-- ===================== PROJECTS WORLD MAP (3D globe, libraries load on first open) ===================== -->
   <!-- ======================================================================= -->
 
 </head>
@@ -1237,12 +1291,21 @@
   </div>
   <!-- ======================================================================= -->
 
-  <!-- ===================== PROJECTS WORLD MAP (Leaflet JS) ===================== -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <!-- ===================== PROJECTS WORLD MAP (3D globe JS) ===================== -->
   <script>
-    // Demo data: replace with your real projects + coordinates
+    // Projects shown on the globe: lat/lng are stored here, so nothing is geocoded at runtime
     const PROJECTS = [
+      {
+            "title": "NeuConnect (German sector)",
+            "country": "Germany",
+            "from": "2026-10",
+            "to": "Present",
+            "vessel": "Cable Enterprise",
+            "scope": "HVDC interconnector cable lay",
+            "place": "NeuConnect, German North Sea sector, Germany",
+            "lat": 53.85,
+            "lng": 7.3
+      },
       {
             "title": "Coastal Virginia Offshore Wind",
             "country": "USA",
@@ -1250,7 +1313,9 @@
             "to": "Present",
             "vessel": "CLB Ulisse",
             "scope": "Cable lay & burial / Trenching",
-            "place": "Coastal Virginia Offshore Wind, Virginia Beach, Virginia, USA"
+            "place": "Coastal Virginia Offshore Wind, Virginia Beach, Virginia, USA",
+            "lat": 36.88,
+            "lng": -75.48
       },
       {
             "title": "Tyrrhenian Link",
@@ -1259,7 +1324,9 @@
             "to": "2025-03",
             "vessel": "CLV Leonardo Da Vinci",
             "scope": "Cable lay support / QA-QC",
-            "place": "Tyrrhenian Link, Sicily, Italy"
+            "place": "Tyrrhenian Link, Sicily, Italy",
+            "lat": 38.6,
+            "lng": 13.9
       },
       {
             "title": "Sofia Offshore Wind Farm",
@@ -1268,7 +1335,9 @@
             "to": "2024-11",
             "vessel": "CLV Leonardo Da Vinci",
             "scope": "Cable lay & burial",
-            "place": "Sofia Offshore Wind Farm, North Sea, United Kingdom"
+            "place": "Sofia Offshore Wind Farm, North Sea, United Kingdom",
+            "lat": 54.95,
+            "lng": 2.3
       },
       {
             "title": "Lightning",
@@ -1277,7 +1346,9 @@
             "to": "2024-08",
             "vessel": "CLV Leonardo Da Vinci",
             "scope": "Cable lay support",
-            "place": "Abu Dhabi, United Arab Emirates"
+            "place": "Abu Dhabi, United Arab Emirates",
+            "lat": 24.6,
+            "lng": 53.2
       },
       {
             "title": "Lightning",
@@ -1286,7 +1357,9 @@
             "to": "2024-04",
             "vessel": "MPV Daniel Bernoulli",
             "scope": "WROV/TROV / Pre-lay mattresses",
-            "place": "Abu Dhabi, United Arab Emirates"
+            "place": "Abu Dhabi, United Arab Emirates",
+            "lat": 24.6,
+            "lng": 53.2
       },
       {
             "title": "Formosa 1",
@@ -1295,7 +1368,9 @@
             "to": "2023-09",
             "vessel": "CLV Willem de Vlamingh",
             "scope": "Cable lay",
-            "place": "Formosa 1 Offshore Wind Farm, Miaoli County, Taiwan"
+            "place": "Formosa 1 Offshore Wind Farm, Miaoli County, Taiwan",
+            "lat": 24.68,
+            "lng": 120.72
       },
       {
             "title": "Changhua OWF Phase I",
@@ -1304,7 +1379,9 @@
             "to": "2023-06",
             "vessel": "CLV Willem de Vlamingh",
             "scope": "Cable lay & burial",
-            "place": "Changhua Offshore Wind Farm, Changhua County, Taiwan"
+            "place": "Changhua Offshore Wind Farm, Changhua County, Taiwan",
+            "lat": 24.05,
+            "lng": 120.15
       },
       {
             "title": "Fécamp Offshore Wind Farm",
@@ -1313,7 +1390,9 @@
             "to": "2022-12",
             "vessel": "MPV Adhémar de Saint-Venant",
             "scope": "Subsea rock installation",
-            "place": "Fécamp, Normandy, France"
+            "place": "Fécamp, Normandy, France",
+            "lat": 49.88,
+            "lng": 0.22
       },
       {
             "title": "Kaskasi Offshore Wind Farm",
@@ -1322,7 +1401,9 @@
             "to": "2022-10",
             "vessel": "MPV Adhémar de Saint-Venant",
             "scope": "Subsea rock installation",
-            "place": "Kaskasi Offshore Wind Farm, North Sea, Germany"
+            "place": "Kaskasi Offshore Wind Farm, North Sea, Germany",
+            "lat": 54.49,
+            "lng": 7.7
       },
       {
             "title": "Kaskasi Offshore Wind Farm",
@@ -1331,7 +1412,9 @@
             "to": "2022-06",
             "vessel": "MPV Daniel Bernoulli",
             "scope": "Subsea rock installation",
-            "place": "Kaskasi Offshore Wind Farm, North Sea, Germany"
+            "place": "Kaskasi Offshore Wind Farm, North Sea, Germany",
+            "lat": 54.49,
+            "lng": 7.7
       },
       {
             "title": "Neart na Gaoithe",
@@ -1340,7 +1423,9 @@
             "to": "2022-01",
             "vessel": "Simon Stevin",
             "scope": "Subsea rock installation",
-            "place": "Neart na Gaoithe Offshore Wind Farm, North Sea, Scotland"
+            "place": "Neart na Gaoithe Offshore Wind Farm, North Sea, Scotland",
+            "lat": 56.27,
+            "lng": -2.27
       },
       {
             "title": "Greater Tortue Ahmeyim",
@@ -1349,7 +1434,9 @@
             "to": "2021-09",
             "vessel": "MPV Adhémar de Saint-Venant",
             "scope": "Subsea rock installation",
-            "place": "Greater Tortue Ahmeyim, Mauritania"
+            "place": "Greater Tortue Ahmeyim, Mauritania",
+            "lat": 16.1,
+            "lng": -16.9
       },
       {
             "title": "Akkuyu Power Plant",
@@ -1358,7 +1445,9 @@
             "to": "2021-06",
             "vessel": "MPV Daniel Bernoulli",
             "scope": "Rock installation / leveling",
-            "place": "Akkuyu Nuclear Power Plant, Mersin, Turkey"
+            "place": "Akkuyu Nuclear Power Plant, Mersin, Turkey",
+            "lat": 36.14,
+            "lng": 33.54
       },
       {
             "title": "Changhua OWF Phase I",
@@ -1367,7 +1456,9 @@
             "to": "2021-03",
             "vessel": "THSD Francis Beaufort",
             "scope": "Subsea leveling / dredging support",
-            "place": "Changhua Offshore Wind Farm, Changhua County, Taiwan"
+            "place": "Changhua Offshore Wind Farm, Changhua County, Taiwan",
+            "lat": 24.05,
+            "lng": 120.15
       },
       {
             "title": "Kirinskoye GCF",
@@ -1376,7 +1467,9 @@
             "to": "2020-09",
             "vessel": "Joseph Plateau",
             "scope": "Subsea rock installation",
-            "place": "Kirinskoye, Sakhalin Oblast, Russia"
+            "place": "Kirinskoye, Sakhalin Oblast, Russia",
+            "lat": 51.55,
+            "lng": 143.55
       },
       {
             "title": "Hainan II",
@@ -1385,7 +1478,9 @@
             "to": "2020-02",
             "vessel": "Joseph Plateau",
             "scope": "Subsea rock installation",
-            "place": "Hainan, China"
+            "place": "Hainan, China",
+            "lat": 20.2,
+            "lng": 110.15
       },
       {
             "title": "Jindo & Jeju Island",
@@ -1394,7 +1489,9 @@
             "to": "2019-08",
             "vessel": "Joseph Plateau",
             "scope": "Subsea rock installation",
-            "place": "Jeju Island, South Korea"
+            "place": "Jeju Island, South Korea",
+            "lat": 33.95,
+            "lng": 126.35
       },
       {
             "title": "Hainan II",
@@ -1403,7 +1500,9 @@
             "to": "2019-05",
             "vessel": "Joseph Plateau",
             "scope": "Subsea rock installation",
-            "place": "Hainan, China"
+            "place": "Hainan, China",
+            "lat": 20.2,
+            "lng": 110.15
       },
       {
             "title": "Trans Adriatic Pipeline (TAP)",
@@ -1412,7 +1511,9 @@
             "to": "2018-12",
             "vessel": "MPV Adhémar de Saint-Venant",
             "scope": "Pipeline support",
-            "place": "San Foca, Melendugno, Puglia, Italy"
+            "place": "San Foca, Melendugno, Puglia, Italy",
+            "lat": 40.3,
+            "lng": 18.45
       },
       {
             "title": "NASR Field",
@@ -1421,7 +1522,9 @@
             "to": "2018-11",
             "vessel": "MPV Daniel Bernoulli",
             "scope": "Field works",
-            "place": "Nasr Field, Abu Dhabi, United Arab Emirates"
+            "place": "Nasr Field, Abu Dhabi, United Arab Emirates",
+            "lat": 25.3,
+            "lng": 53.3
       },
       {
             "title": "Malampaya Gas Export Pipeline",
@@ -1430,7 +1533,9 @@
             "to": "2018-08",
             "vessel": "Joseph Plateau",
             "scope": "Pipeline works",
-            "place": "Malampaya, Palawan, Philippines"
+            "place": "Malampaya, Palawan, Philippines",
+            "lat": 11.55,
+            "lng": 119.15
       },
       {
             "title": "Sabetta",
@@ -1439,7 +1544,9 @@
             "to": "2017-08",
             "vessel": "",
             "scope": "Port works",
-            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia"
+            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia",
+            "lat": 71.28,
+            "lng": 72.1
       },
       {
             "title": "AB4 Pipeline",
@@ -1448,7 +1555,9 @@
             "to": "2017-05",
             "vessel": "",
             "scope": "Pipeline works",
-            "place": "Bahrain"
+            "place": "Bahrain",
+            "lat": 26.05,
+            "lng": 50.35
       },
       {
             "title": "Abu Qir Port",
@@ -1457,7 +1566,9 @@
             "to": "2016-12",
             "vessel": "",
             "scope": "Port works",
-            "place": "Abu Qir, Alexandria, Egypt"
+            "place": "Abu Qir, Alexandria, Egypt",
+            "lat": 31.33,
+            "lng": 30.07
       },
       {
             "title": "Sabetta",
@@ -1466,7 +1577,9 @@
             "to": "2017-10",
             "vessel": "",
             "scope": "Port works",
-            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia"
+            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia",
+            "lat": 71.28,
+            "lng": 72.1
       },
       {
             "title": "Lekki",
@@ -1475,7 +1588,9 @@
             "to": "2016-05",
             "vessel": "",
             "scope": "Port / coastal works",
-            "place": "Lekki, Lagos, Nigeria"
+            "place": "Lekki, Lagos, Nigeria",
+            "lat": 6.43,
+            "lng": 4.0
       },
       {
             "title": "Klaipėda Port",
@@ -1484,7 +1599,9 @@
             "to": "2015-11",
             "vessel": "",
             "scope": "Port works",
-            "place": "Klaipėda, Lithuania"
+            "place": "Klaipėda, Lithuania",
+            "lat": 55.7,
+            "lng": 21.13
       },
       {
             "title": "Türkmenbaşy Port",
@@ -1493,7 +1610,9 @@
             "to": "2015-08",
             "vessel": "",
             "scope": "Port works",
-            "place": "Türkmenbaşy, Turkmenistan"
+            "place": "Türkmenbaşy, Turkmenistan",
+            "lat": 40.01,
+            "lng": 52.98
       },
       {
             "title": "Kapuk Naga Jakarta",
@@ -1502,7 +1621,9 @@
             "to": "2015-05",
             "vessel": "",
             "scope": "Coastal works",
-            "place": "Jakarta, Indonesia"
+            "place": "Jakarta, Indonesia",
+            "lat": -6.05,
+            "lng": 106.7
       },
       {
             "title": "North Sea (UKCS)",
@@ -1511,7 +1632,9 @@
             "to": "2015-02",
             "vessel": "Simon Stevin",
             "scope": "Offshore works",
-            "place": "North Sea, United Kingdom"
+            "place": "North Sea, United Kingdom",
+            "lat": 57.5,
+            "lng": 1.5
       },
       {
             "title": "Piltun (Sakhalin)",
@@ -1520,7 +1643,9 @@
             "to": "2014-10",
             "vessel": "MPV La Boudeuse",
             "scope": "Offshore works",
-            "place": "Piltun, Sakhalin Oblast, Russia"
+            "place": "Piltun, Sakhalin Oblast, Russia",
+            "lat": 52.85,
+            "lng": 143.55
       },
       {
             "title": "Ayatsil",
@@ -1529,7 +1654,9 @@
             "to": "2014-08",
             "vessel": "CLV Willem de Vlamingh",
             "scope": "Offshore works",
-            "place": "Ayatsil, Gulf of Mexico"
+            "place": "Ayatsil, Gulf of Mexico",
+            "lat": 19.75,
+            "lng": -92.25
       },
       {
             "title": "Java–Bali Submarine Cable",
@@ -1538,7 +1665,9 @@
             "to": "2014-04",
             "vessel": "MPV La Boudeuse",
             "scope": "Cable works",
-            "place": "Java, Indonesia"
+            "place": "Java, Indonesia",
+            "lat": -8.15,
+            "lng": 114.42
       },
       {
             "title": "Piltun (Sakhalin)",
@@ -1547,7 +1676,9 @@
             "to": "2013-09",
             "vessel": "MPV La Boudeuse",
             "scope": "Offshore works",
-            "place": "Piltun, Sakhalin Oblast, Russia"
+            "place": "Piltun, Sakhalin Oblast, Russia",
+            "lat": 52.85,
+            "lng": 143.55
       },
       {
             "title": "Sabetta",
@@ -1556,7 +1687,9 @@
             "to": "2013-09",
             "vessel": "",
             "scope": "Port works",
-            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia"
+            "place": "Sabetta, Yamalo-Nenets Autonomous Okrug, Russia",
+            "lat": 71.28,
+            "lng": 72.1
       },
       {
             "title": "Gorgon Project",
@@ -1565,7 +1698,9 @@
             "to": "2013-06",
             "vessel": "Willem de Vlamingh",
             "scope": "Offshore works",
-            "place": "Barrow Island, Western Australia, Australia"
+            "place": "Barrow Island, Western Australia, Australia",
+            "lat": -20.78,
+            "lng": 115.4
       },
       {
             "title": "Tatar Strait",
@@ -1574,7 +1709,9 @@
             "to": "2012-10",
             "vessel": "MPV La Boudeuse",
             "scope": "Offshore works",
-            "place": "Tatar Strait, Russia"
+            "place": "Tatar Strait, Russia",
+            "lat": 50.0,
+            "lng": 141.4
       }
 ];
 
@@ -1597,7 +1734,7 @@
       if (window.matchMedia("(min-width: 860px)").matches) return;
       const isExpanded = sheet.classList.contains("expanded");
       setSheetState(isExpanded ? "collapsed" : "expanded");
-      setTimeout(() => window.__projectsMap && window.__projectsMap.invalidateSize(), 120);
+      setTimeout(() => window.__projectsMap && window.__projectsMap.resize(), 120);
     }
 
     sheetToggle.addEventListener("click", toggleSheet);
@@ -1632,9 +1769,9 @@
       if (window.matchMedia("(max-width: 859px)").matches) setSheetState("collapsed");
       else setSheetState("expanded");
 
-      setTimeout(() => window.__projectsMap && window.__projectsMap.invalidateSize(), 150);
-      setTimeout(() => window.__projectsMap && window.__projectsMap.invalidateSize(), 450);
-      requestAnimationFrame(() => window.__projectsMap && window.__projectsMap.invalidateSize());
+      setTimeout(() => window.__projectsMap && window.__projectsMap.resize(), 150);
+      setTimeout(() => window.__projectsMap && window.__projectsMap.resize(), 450);
+      requestAnimationFrame(() => window.__projectsMap && window.__projectsMap.resize());
       searchEl.value = "";
       renderProjectsList("");
       searchEl.focus({ preventScroll: true });
@@ -1650,86 +1787,201 @@
       if (!modal.classList.contains("is-open")) return;
       if (window.matchMedia("(min-width: 860px)").matches) setSheetState("expanded");
       else if (!sheet.classList.contains("expanded")) setSheetState("collapsed");
-      setTimeout(() => window.__projectsMap && window.__projectsMap.invalidateSize(), 120);
+      setTimeout(() => window.__projectsMap && window.__projectsMap.resize(), 120);
     });
 
-    function initProjectsMapOnce(){
-      if (window.__projectsMap) return;
+    /* ===== 3D globe (MapLibre GL) with flat Leaflet fallback when WebGL is missing ===== */
+    const GLOBE_LIB_JS  = "https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js";
+    const GLOBE_LIB_CSS = "https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css";
+    const GLOBE_STYLE   = "https://tiles.openfreemap.org/styles/dark";
+    const FLAT_LIB_JS   = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    const FLAT_LIB_CSS  = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    const ACCENT = "#00e5ff";
 
-      const map = L.map("projectsMap", { worldCopyJump: true }).setView([20, 0], 2);
-      window.__projectsMap = map;
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: "&copy; OpenStreetMap"
-      }).addTo(map);
-
-      map.whenReady(() => {
-        setTimeout(() => map.invalidateSize(), 60);
-        setTimeout(() => map.invalidateSize(), 250);
+    // Projects that share one location are grouped so stacked points open one popup
+    const MAP_GROUPS = [];
+    const GROUP_OF = [];
+    (function(){
+      const byKey = {};
+      PROJECTS.forEach((p, i) => {
+        if (typeof p.lat !== "number" || typeof p.lng !== "number") return;
+        const k = p.lat + "," + p.lng;
+        if (byKey[k] === undefined) { byKey[k] = MAP_GROUPS.length; MAP_GROUPS.push({ lat: p.lat, lng: p.lng, items: [] }); }
+        MAP_GROUPS[byKey[k]].items.push(i);
+        GROUP_OF[i] = byKey[k];
       });
+    })();
 
-      const cluster = L.markerClusterGroup();
-      window.__projectsCluster = cluster;
+    function mapHome(){
+      const phone = window.matchMedia("(max-width: 859px)").matches;
+      return { center: [40, 30], zoom: phone ? 0.9 : 1.5 };
+    }
+    function dm(v, pos, neg){
+      const a = Math.abs(v); let d = Math.floor(a), m = Math.round((a - d) * 60);
+      if (m === 60) { d++; m = 0; }
+      return d + "°" + String(m).padStart(2, "0") + "′" + (v >= 0 ? pos : neg);
+    }
+    function groupPopupHtml(g){
+      const first = PROJECTS[g.items[0]];
+      const same = g.items.every(i => PROJECTS[i].title === first.title);
+      const rows = g.items.map(i => {
+        const p = PROJECTS[i];
+        return `<div class="gp-row">${g.items.length > 1 && !same ? `<b>${esc(p.title)}</b><br/>` : ""}` +
+          `<span>${esc(p.country)} · ${esc(String(p.from || ""))}${p.to ? " – " + esc(String(p.to)) : ""}</span><br/>` +
+          `${p.vessel ? esc(p.vessel) + " · " : ""}${esc(p.scope || "")}</div>`;
+      }).join("");
+      return `<div class="gp"><h4>${esc(first.title)}${g.items.length > 1 && !same ? " +" + (g.items.length - 1) : ""}</h4>` +
+        `<div class="gp-c">${dm(g.lat, "N", "S")} ${dm(g.lng, "E", "W")}</div>${rows}</div>`;
+    }
 
-            // Cache coords in localStorage to avoid repeated geocoding calls
-      const COORDS_CACHE_KEY = "getsurvey_project_coords_v1";
-      const coordsCache = (() => {
-        try { return JSON.parse(localStorage.getItem(COORDS_CACHE_KEY) || "{}"); } catch(e) { return {}; }
-      })();
+    function loadScript(src){
+      return new Promise((resolve, reject) => {
+        const s = document.createElement("script");
+        s.src = src; s.onload = resolve; s.onerror = () => reject(new Error("Failed to load " + src));
+        document.head.appendChild(s);
+      });
+    }
+    function loadCss(href){
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.href = href; document.head.appendChild(l);
+    }
+    function hasWebGL(){
+      try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); }
+      catch(e){ return false; }
+    }
 
-      async function geocodePlace(place){
-        if (!place) return null;
-        if (coordsCache[place]) return coordsCache[place];
+    let mapInit = null;
+    // Called by the list and search: set by whichever map engine started
+    window.__focusProject = null;
+    window.__filterMap = null;
 
-        // Nominatim (OpenStreetMap) geocoding
-        const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + encodeURIComponent(place);
-        const res = await fetch(url, { headers: { "Accept": "application/json" } });
-        if (!res.ok) return null;
-        const data = await res.json();
-        if (!data || !data[0]) return null;
-
-        const coord = { lat: Number(data[0].lat), lng: Number(data[0].lon) };
-        coordsCache[place] = coord;
-        try { localStorage.setItem(COORDS_CACHE_KEY, JSON.stringify(coordsCache)); } catch(e) {}
-        return coord;
-      }
-
-      // Add markers (sequential geocoding to be gentle)
-      (async () => {
-        for (let idx = 0; idx < PROJECTS.length; idx++){
-          const p = PROJECTS[idx];
-          const popup = `
-            <div style="min-width:220px">
-              <strong>${esc(p.title)}</strong><br/>
-              <div>${esc(p.country)} · ${esc(String(p.from || ""))}${p.to ? " – " + esc(String(p.to)) : ""}</div>
-              <div><b>Vessel:</b> ${esc(p.vessel || "-")}</div>
-              <div><b>Scope:</b> ${esc(p.scope || "-")}</div>
-            </div>
-          `;
-
-          let lat = p.lat, lng = p.lng;
-          if (typeof lat !== "number" || typeof lng !== "number"){
-            const coord = await geocodePlace(p.place);
-            if (coord) { lat = coord.lat; lng = coord.lng; }
-          }
-
-          if (typeof lat === "number" && typeof lng === "number"){
-            const marker = L.marker([lat, lng]).bindPopup(popup);
-            marker.__projectIndex = idx;
-            cluster.addLayer(marker);
-          }
-
-          // Polite delay (only impacts missing coords)
-          await new Promise(r => setTimeout(r, 900));
-        }
-      })();
-    
-
-      map.addLayer(cluster);
-
+    function initProjectsMapOnce(){
+      if (mapInit) return mapInit;
       searchEl.addEventListener("input", () => renderProjectsList(searchEl.value));
       renderProjectsList("");
+      mapInit = (hasWebGL() ? initGlobe() : initFlat()).catch(err => {
+        console.error(err);
+        document.getElementById("projectsMap").innerHTML =
+          '<div class="map-fallback-msg">The map could not be loaded. Please check your connection and reopen it.</div>';
+      });
+      return mapInit;
+    }
+
+    async function initGlobe(){
+      loadCss(GLOBE_LIB_CSS);
+      await loadScript(GLOBE_LIB_JS);
+
+      const home = mapHome();
+      const map = new maplibregl.Map({
+        container: "projectsMap",
+        style: GLOBE_STYLE,
+        center: home.center,
+        zoom: home.zoom,
+        minZoom: 0.6,
+        attributionControl: { compact: true }
+      });
+      window.__projectsMap = map;
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+
+      const toFeatures = (keep) => ({
+        type: "FeatureCollection",
+        features: MAP_GROUPS.map((g, gi) => ({
+          type: "Feature", id: gi,
+          geometry: { type: "Point", coordinates: [g.lng, g.lat] },
+          properties: { g: gi, n: g.items.length }
+        })).filter(f => !keep || keep.has(f.id))
+      });
+
+      map.on("style.load", () => {
+        map.setProjection({ type: "globe" });
+        try {
+          map.setSky({ "sky-color": "#0b1a2e", "horizon-color": "#1d4e7a",
+            "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 5, 1, 7, 0] });
+        } catch(e) {}
+        // Navy ocean and slate land, matching the site's dark map theme
+        if (map.getLayer("background")) map.setPaintProperty("background", "background-color", "#1b2735");
+        if (map.getLayer("water")) map.setPaintProperty("water", "fill-color", "#071a2c");
+
+        map.addSource("projects", { type: "geojson", data: toFeatures(null) });
+        map.addLayer({ id: "projects-glow", type: "circle", source: "projects", paint: {
+          "circle-radius": ["+", 14, ["*", 4, ["get", "n"]]],
+          "circle-color": ACCENT,
+          "circle-opacity": ["case", ["boolean", ["feature-state", "on"], false], 0.65, 0.3],
+          "circle-blur": 1 } });
+        map.addLayer({ id: "projects-dot", type: "circle", source: "projects", paint: {
+          "circle-radius": ["+", 4, ["*", 1.5, ["get", "n"]]],
+          "circle-color": ACCENT, "circle-stroke-width": 1.5, "circle-stroke-color": "#ffffff" } });
+      });
+
+      // Slow spin until the visitor touches the globe
+      let spinning = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const stopSpin = () => { spinning = false; };
+      const spinStep = () => {
+        if (!spinning || map.getZoom() > 3 || !modal.classList.contains("is-open")) return;
+        const c = map.getCenter(); c.lng -= 4;
+        map.easeTo({ center: c, duration: 1000, easing: t => t });
+      };
+      map.on("mousedown", stopSpin); map.on("touchstart", stopSpin);
+      map.on("wheel", stopSpin); map.on("dragstart", stopSpin);
+      map.on("moveend", spinStep);
+      map.on("load", spinStep);
+
+      let popup = null, active = null;
+      function openGroup(gi, fly){
+        stopSpin();
+        const g = MAP_GROUPS[gi];
+        if (active !== null) map.setFeatureState({ source: "projects", id: active }, { on: false });
+        active = gi; map.setFeatureState({ source: "projects", id: gi }, { on: true });
+        if (popup) popup.remove();
+        const show = () => {
+          popup = new maplibregl.Popup({ offset: 14, maxWidth: "300px", className: "globe-popup" })
+            .setLngLat([g.lng, g.lat]).setHTML(groupPopupHtml(g)).addTo(map);
+        };
+        if (fly) {
+          map.flyTo({ center: [g.lng, g.lat], zoom: Math.max(map.getZoom(), 4.5), duration: 1800, essential: true });
+          map.once("moveend", show);
+        } else show();
+      }
+
+      map.on("click", "projects-glow", e => openGroup(e.features[0].properties.g, true));
+      map.on("mouseenter", "projects-glow", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "projects-glow", () => { map.getCanvas().style.cursor = ""; });
+
+      window.__focusProject = (index) => { if (GROUP_OF[index] !== undefined) openGroup(GROUP_OF[index], true); };
+      window.__filterMap = (indices) => {
+        const src = map.getSource("projects"); if (!src) return;
+        const keep = indices ? new Set(indices.map(i => GROUP_OF[i]).filter(g => g !== undefined)) : null;
+        src.setData(toFeatures(keep));
+      };
+      window.__mapHome = () => { if (popup) popup.remove(); const h = mapHome(); map.flyTo({ center: h.center, zoom: h.zoom, duration: 1400 }); };
+    }
+
+    async function initFlat(){
+      loadCss(FLAT_LIB_CSS);
+      await loadScript(FLAT_LIB_JS);
+      const map = L.map("projectsMap", { worldCopyJump: true }).setView([25, 30], 2);
+      window.__projectsMap = map;
+      map.resize = () => map.invalidateSize();
+      L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+        maxZoom: 16, attribution: "&copy; Esri"
+      }).addTo(map);
+      const layer = L.layerGroup().addTo(map);
+      const markers = MAP_GROUPS.map(g => L.circleMarker([g.lat, g.lng], {
+        radius: 5 + g.items.length, color: "#fff", weight: 1.5, fillColor: ACCENT, fillOpacity: 1
+      }).bindPopup(groupPopupHtml(g), { className: "globe-popup" }));
+      markers.forEach(m => layer.addLayer(m));
+      setTimeout(() => map.invalidateSize(), 60);
+
+      window.__focusProject = (index) => {
+        const gi = GROUP_OF[index]; if (gi === undefined) return;
+        map.flyTo([MAP_GROUPS[gi].lat, MAP_GROUPS[gi].lng], 5, { duration: 0.8 });
+        markers[gi].openPopup();
+      };
+      window.__filterMap = (indices) => {
+        const keep = indices ? new Set(indices.map(i => GROUP_OF[i])) : null;
+        layer.clearLayers();
+        markers.forEach((m, gi) => { if (!keep || keep.has(gi)) layer.addLayer(m); });
+      };
+      window.__mapHome = () => map.setView([25, 30], 2);
     }
 
     function renderProjectsList(q=""){
@@ -1741,11 +1993,12 @@
           (p.country||"").toLowerCase().includes(query) ||
           (p.vessel||"").toLowerCase().includes(query) ||
           (p.scope||"").toLowerCase().includes(query) ||
-          String(p.year||"").includes(query)
+          String(p.from||"").includes(query) || String(p.to||"").toLowerCase().includes(query)
         );
       });
 
       mapCountEl.textContent = `${filtered.length} project${filtered.length===1?"":"s"}`;
+      if (window.__filterMap) window.__filterMap(query ? filtered.map(p => p.i) : null);
 
       listEl.innerHTML = filtered.map(p => `
         <div class="projects-item">
@@ -1758,13 +2011,7 @@
         a.addEventListener("click", (e) => {
           e.preventDefault();
           const index = Number(a.getAttribute("data-zoom"));
-          const proj = PROJECTS[index];
-          window.__projectsMap.flyTo([proj.lat, proj.lng], 6, { duration: 0.8 });
-
-          window.__projectsCluster.eachLayer(layer => {
-            if (layer.__projectIndex === index) layer.openPopup();
-          });
-
+          if (window.__focusProject) window.__focusProject(index);
           if (window.matchMedia("(max-width: 859px)").matches) setSheetState("collapsed");
         });
       });
